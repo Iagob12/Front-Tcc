@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import integrantes from "../../../assets/Home/integrantes.png"
-import "../../../styles/Home/main/style.css"
+import "../../../styles/Home/Main/style.css"
 import Button from "../../Button";
 
 const Main = () => {
