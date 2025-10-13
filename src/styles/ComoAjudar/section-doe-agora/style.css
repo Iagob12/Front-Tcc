@@ -1,0 +1,30 @@
+.section-doe {
+    padding: 20px 120px;
+    
+    
+}
+.container-doe {
+    margin-top: 53px;
+   display: flex;
+    justify-self: center;
+    justify-content: center;
+    gap: 63px;
+}
+
+.texto-doe span {
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.texto-doe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 627px;
+}
+
+.texto-doe p{
+    font-size: 1.750rem;
+    text-align: start;
+    padding-bottom: 70px;
+}

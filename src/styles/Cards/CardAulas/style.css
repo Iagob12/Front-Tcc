@@ -1,0 +1,22 @@
+.card-aula{
+    display: flex;
+    justify-self: center;
+    background: var(--color-white);
+    border-radius: 10px;
+}
+
+.info-aula{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.local-data, .lembrete-cancelar{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.125rem;
+    justify-content: center;
+}

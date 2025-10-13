@@ -1,0 +1,14 @@
+.card-pilar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    width: 30%;
+    transition: 0.5s;
+}
+
+.card-pilar:hover {
+    transform: translateY(-10px);
+}
+

@@ -1,0 +1,45 @@
+.cardEventos-container{
+    display: flex;
+    width: 951px;
+    background-color: var(--color-white);
+    border-radius: 20px;
+    transition: 0.5s ;
+}
+
+.cardeEventos-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.cardEventos-info h2{
+    color: var(--color-black);
+    padding-top: 47px;
+    text-align: center;
+    font-size: 32px;
+    padding-bottom: 44px;
+    margin: 0;
+}
+
+.dados-evento{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 27px;
+    width: 100%;
+    padding-bottom: 40px;
+    font-size: 24px;
+}
+
+.cardEventos-info button{
+    padding: 13.5px 54.5px;
+    text-align: center;
+}
+
+.cardEventos-container:hover{
+   transform: translateY(-10px);
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+}

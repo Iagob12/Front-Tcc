@@ -1,0 +1,16 @@
+h2{
+    padding-top: 54px;
+    color: var(--color-grey );
+    font-size: 48px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 32px ;
+}
+
+.linha{
+    background-color: var(--color-secondary);
+    width: 318.01px;
+    height: 2px;
+    margin:0 auto;  
+    
+}

@@ -1,0 +1,189 @@
+/* Modal Login OTP - Estilo do Site */
+.modal-wrapper-otp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: transparent;
+}
+
+.modal-otp {
+  background: var(--color-white, #FFFFFF);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 100%;
+  padding: 50px 60px;
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.modal-otp .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.modal-otp .modal-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--color-secondary, #B20000);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.modal-otp .modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--color-grey, #808080);
+  transition: color 0.2s;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.modal-otp .modal-close-btn:hover {
+  color: var(--color-black, #000000);
+}
+
+.modal-otp .modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-secondary, #B20000);
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.modal-otp .modal-subtitle {
+  color: var(--color-grey, #808080);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.modal-otp .otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modal-otp .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-otp .form-group label {
+  font-weight: 500;
+  color: var(--color-grey, #808080);
+  font-size: 0.9rem;
+}
+
+.modal-otp .form-input {
+  padding: 12px 16px;
+  border: 1px solid var(--color-grey-light, #F2F2F2);
+  border-radius: 20px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  background: var(--color-white, #FFFFFF);
+}
+
+.modal-otp .form-input[type="text"] {
+  text-align: center;
+  letter-spacing: 0.4em;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.modal-otp .form-input:focus {
+  outline: none;
+  border-color: var(--color-secondary, #B20000);
+  box-shadow: none;
+}
+
+.modal-otp .message {
+  padding: 12px 16px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.modal-otp .message.success {
+  background: #d4edda;
+  color: #155724;
+  border: none;
+}
+
+.modal-otp .message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: none;
+}
+
+.modal-otp .form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.modal-otp .btn-submit {
+  background: var(--color-secondary, #B20000);
+  color: var(--color-white, #FFFFFF);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.modal-otp .btn-submit:hover:not(:disabled) {
+  background: var(--color-primary, #FF0000);
+  transform: translateY(-1px);
+}
+
+.modal-otp .btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-otp .btn-back {
+  background: transparent;
+  color: var(--color-secondary, #B20000);
+  border: 1px solid var(--color-secondary, #B20000);
+  padding: 10px 20px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.modal-otp .btn-back:hover {
+  background: var(--color-secondary, #B20000);
+  color: var(--color-white, #FFFFFF);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .modal-otp {
+    padding: 40px 30px;
+    max-width: calc(100% - 2rem);
+  }
+  
+  .modal-otp .modal-title {
+    font-size: 1.5rem;
+  }
+}

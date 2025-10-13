@@ -1,0 +1,117 @@
+.background-card{
+    
+    background: var(--color-grey-light);
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-formulario{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    
+    align-items: center;
+    padding: 69px 90px;
+    background: var(--color-white);
+    border-radius: 20px;
+}
+
+.inputs{
+    padding: 40px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input input{
+    border: 1px solid var(--color-grey-light);
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+}
+
+.input label{
+    color: var(--color-grey);
+}
+
+.card-formulario h1{
+    color: var(--color-secondary);
+    font-size: 2.5rem;
+}
+
+.opcoes-login{
+    text-align: center;
+    gap: 20px;
+    
+}
+
+.opcoes-login button{
+    margin: 5px;
+    width: 30px;
+    font-size: 2rem;
+    background: none;
+}
+
+
+.criar-conta {
+    margin-top: 14px;
+    
+}
+.criar-conta:hover{
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.criar-conta span{
+    font-weight: bold;
+    color: var(--color-secondary);
+}
+
+.social-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Opções extras de login */
+.login-extras {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1rem 0;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-grey-light);
+    border-bottom: 1px solid var(--color-grey-light);
+}
+
+.login-extras .link-button {
+    background: none;
+    border: none;
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.login-extras .link-button:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.login-extras .separator {
+    color: var(--color-grey);
+    font-weight: 300;
+}

@@ -1,0 +1,79 @@
+
+.card-blog{
+    position: relative;
+    background-color: var(--color-grey-light);
+    border-radius: 20px;
+    width: 362px;
+    
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.5s ease-in-out;
+}
+
+.card-blog:hover{
+    transform: translateY(-10px);
+    
+}
+.blur{
+    position: absolute;
+    top: 90px;
+}
+
+.card-blog img{
+  border-radius: 20px 20px 0px 0px;
+  width:  362px;
+  height: 202.27px;
+}
+
+.card-blog .dateTime{
+    padding-top: 0px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-grey);
+    text-align: start;
+    
+}
+
+.linha-blog{
+    margin-top: 6.24px;
+    width: 294px;
+    height: 1px;
+    background-color: var(--color-grey);
+    text-align: center;
+}
+
+.card-blog-info{
+    padding: 19px 34.88px;
+    display: flex;
+    flex-direction: column;
+}
+.card-blog h4{
+    margin-top: 12.59px;
+    color: var(--color-secondary);
+    font-weight: 700;
+    font-size: 16px;
+    text-align: start;
+    
+    
+}
+.card-blog .noticia{
+    margin-top: 7.08px;
+    font-weight: 500;
+    font-size: 14px;
+    text-align: start;
+    width: 293px;
+  
+}
+.btn-blog{
+    margin-top: 19px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-grey);
+    text-align: start;
+    cursor: pointer;
+    
+}
+.btn-blog:hover{
+    color: var(--color-secondary);
+    text-decoration: underline;
+}

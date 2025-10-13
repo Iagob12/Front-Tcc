@@ -1,0 +1,12 @@
+.section-tempo{
+    background: var(--color-grey-light);
+    
+}
+
+.lista-acontecimentos {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    
+}

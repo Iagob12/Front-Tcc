@@ -1,0 +1,30 @@
+.conteudo-inicial{
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    margin: 36.74px 114px;
+
+}
+
+
+.voluntario h1{
+    font-size: 64px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 53px;
+}
+
+.voluntario p{
+    width: 524px;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 36px;
+}
+
+
+
+
+
+.img-integrantes img{
+    width: 500px;
+}

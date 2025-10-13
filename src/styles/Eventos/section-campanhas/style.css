@@ -1,0 +1,81 @@
+.section-campanhas{
+    padding: 50px 120px;
+}
+
+
+.campanhas-container {
+    text-align: center;
+    padding: 57px 136px;
+}
+
+.campanhas-carrossel{
+    margin: 0 auto;
+    margin-top: 31px;
+    width: 930px;
+    background-color: var(--color-grey-light);
+    padding: 39px 59px;
+    border-radius: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-black);
+}
+
+.campanhas-carrossel button{
+    margin-top: 36px;
+    padding: 13.5px 54.5px;
+}
+
+
+.carrossel-campanha-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.meu-carrossel .swiper-slide {
+    opacity: 0 !important;
+    visibility: hidden;
+    transition: opacity 600ms ease, visibility 600ms ease;
+}
+
+.meu-carrossel .swiper-slide-active {
+    opacity: 1 !important;
+    visibility: visible;
+}
+
+/* Garante que o conteúdo do slide também respeite a transição */
+.carrossel-campanha-item {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrossel-campanha-item img {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+.carrossel-campanha-descricao {
+    margin-top: 20px;
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    color: var(--color-black);
+}
+
+.campanhas-carrossel {
+    position: relative;
+    padding-bottom: 60px; /* Espaço para a paginação */
+}
+

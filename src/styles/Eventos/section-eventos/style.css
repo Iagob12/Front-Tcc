@@ -1,0 +1,8 @@
+.section-eventos {
+    background-color: var(--color-grey-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 100px;
+}

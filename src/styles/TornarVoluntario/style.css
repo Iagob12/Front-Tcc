@@ -1,0 +1,72 @@
+.main-container {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.overlay-capa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* escurecer a imagem */
+    z-index: 2;
+}
+
+.content-container {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 100px;
+}
+
+.main-container h1 {
+    color: white;
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    flex: 1;
+}
+
+.text-container {
+    display: flex;
+    font-size: 2.5rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    align-items: flex-end;
+    color: var(--color-white);
+    font-weight: bold;
+}
+
+.btn-voluntario {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: 1px solid transparent;
+}
+
+.btn-voluntario:hover {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
+}
+

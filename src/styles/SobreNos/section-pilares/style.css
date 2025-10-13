@@ -1,0 +1,15 @@
+.section-pilares{
+    background: var(--color-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 122px;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+ hr{
+    height: 2px;
+    background: var(--color-grey-dark);
+    margin: 30px;
+}

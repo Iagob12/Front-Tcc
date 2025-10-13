@@ -1,0 +1,24 @@
+.section-historia{
+    display: flex;
+    align-items: center;
+    padding: 68px 102px;
+    display: flex;
+    justify-content: center;
+}
+
+.historia-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 140px;
+    margin-top: 20px;
+}
+
+.historia-content p{
+    font-size: 28px;
+    width: 510px;
+}
+
+.historia-content span{
+    color: var(--color-secondary);
+}

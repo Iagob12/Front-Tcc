@@ -1,0 +1,74 @@
+.cadastro{
+     background-color: var(--color-grey-light);
+}
+
+.capa-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 501px;
+    border-radius: 0 20px 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.capa-container .fundo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.capa-container h1{
+    color: var(--color-white);
+    font-size: 3.5rem;
+    justify-self: center;
+    padding: 40px;
+    text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+}
+
+.overlay{
+    background-color: var(--color-grey-light);  
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(143, 1, 1, 0.5);
+    z-index: 2;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 1.5rem;
+    width: 100%;
+    justify-content: center;
+    color: var(--color-white);
+    font-weight: 200;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.cabecalho:hover {
+    opacity: 0.8;
+}
+
+.cabecalho img{
+    width: 60px;
+}

@@ -1,0 +1,7 @@
+.lista-aulas {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 70px 0px;
+}

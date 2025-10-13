@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+
+}
+
+:root{
+
+    /* Brand colors */
+    --color-primary: #FF0000;
+    --color-secondary: #B20000;
+    --color-tertiary: #ED1B1B;
+
+    /* Text color */
+    --color-black: #000000;
+
+    /* Neutral colors */
+    --color-white: #FFFFFF;
+    --color-grey-light: #F2F2F2;
+    --color-grey-medium: #BFBFBF;
+    --color-grey: #808080;
+    --color-grey-dark: #595959;
+
+}
+
+body{
+    font-family: 'Inter';
+}
+
+/* Bloquear scroll quando modal estiver aberto */
+body.modal-open {
+    overflow: hidden !important;
+}
+
+/* Estilos globais para modais */
+dialog.modal-dialog {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 90vw;
+    max-height: 90vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+dialog.modal-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+
+button{
+    outline: none;
+}
+
+.btn-primary{
+    background-color: var(--color-secondary);
+    padding: 9.5px 16px;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.btn-secondary{
+    background: transparent;
+    color: var(--color-secondary);
+    padding: 9.5px 16px;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 15px;
+    border: 1px solid var(--color-secondary) ;
+    cursor:pointer;
+}
+
+li{
+     list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: var(--color-black);
+   
+}

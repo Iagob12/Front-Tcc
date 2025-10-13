@@ -1,0 +1,12 @@
+.container-equipe {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    justify-self: center;
+    font-size: 1.5rem;
+    align-items: center;
+    gap: 134px;
+}
+.container-equipe p {
+    width: 460px;
+}
