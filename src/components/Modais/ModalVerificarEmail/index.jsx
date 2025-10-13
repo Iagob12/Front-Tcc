@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { X, Mail, RefreshCw } from 'lucide-react';
 import "../../../styles/Modais/ModalVerificacao/style.css";
+import { apiPost } from '../../../config/api';
 
 export function UseModalVerificarEmail() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,11 +48,7 @@ export function ModalVerificarEmail({ isOpen, onClose, email, onSuccess }) {
     setMessage('');
 
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/verify-email-modern", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, codigo })
-      });
+      const response = await apiPost('/auth/verify-email-modern', { email, codigo });
 
       if (response.ok) {
         setMessage('Email verificado com sucesso!');
@@ -76,11 +73,7 @@ export function ModalVerificarEmail({ isOpen, onClose, email, onSuccess }) {
     setMessage('');
 
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/resend-verification", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
+      const response = await apiPost('/auth/resend-verification', { email });
 
       if (response.ok) {
         setMessage('Novo código enviado para seu email!');

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ModalVerificarEmail, UseModalVerificarEmail } from "../../Modais/ModalVerificarEmail";
 import { ModalRecuperarSenha, UseModalRecuperarSenha } from "../../Modais/ModalRecuperarSenha";
 import { ModalLoginOTP, UseModalLoginOTP } from "../../Modais/ModalLoginOTP";
+import { apiPost, createApiUrl } from '../../../config/api';
 
 const CardCadastro = ({ title, action }) => {
     const navigate = useNavigate();
@@ -38,10 +39,10 @@ const CardCadastro = ({ title, action }) => {
         setLoading(true);
         
         try {
-            const url =
+            const endpoint =
                 title === "Login"
-                    ? "https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/login"
-                    : "https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/register-modern";
+                    ? '/auth/login'
+                    : '/auth/register-modern';
 
             const body =
                 title === "Login"
@@ -53,12 +54,7 @@ const CardCadastro = ({ title, action }) => {
                 modalVerificarEmail.open(formData.email);
             }
 
-            const response = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify(body)
-            });
+            const response = await apiPost(endpoint, body);
 
             if (response.ok) {
                 const data = await response.json();
@@ -99,7 +95,7 @@ const CardCadastro = ({ title, action }) => {
 
     // 🔹 Novo handler para login com Google
     const handleGoogleLogin = () => {
-        window.location.href = "https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/oauth2/authorization/google";
+        window.location.href = createApiUrl('/oauth2/authorization/google');
     };
 
     return (

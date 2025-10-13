@@ -3,6 +3,7 @@ import "../../styles/Header/style.css";
 import Logo from "../../assets/Logos/Logo.svg";
 import Button from "../Button";
 import { Link, useNavigate } from 'react-router-dom';
+import { apiGet, apiPost } from '../../config/api';
 
 const Header = () => {
   const [aberto, setAberto] = useState(false);
@@ -17,10 +18,7 @@ const Header = () => {
     const checkLogin = async () => {
       try {
         console.log("🔍 Verificando login...");
-        const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/check", {
-          method: "GET",
-          credentials: "include" // envia cookies HttpOnly
-        });
+        const response = await apiGet('/auth/check');
         console.log("📡 Resposta do /auth/check:", response.status);
         
         if (response.ok) {
@@ -50,10 +48,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/logout", {
-        method: "POST",
-        credentials: "include"
-      });
+      const response = await apiPost('/auth/logout', {});
       
       if (response.ok) {
         console.log("✅ Logout realizado com sucesso");

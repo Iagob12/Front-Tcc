@@ -4,6 +4,7 @@ import Title from "../../Title";
 import "../../../styles/Blog/section-blog/style.css"
 import Dentista from "../../../assets/Blog/image-blog.svg"
 import { Link } from "react-router-dom";
+import { apiGet } from '../../../config/api';
 
 const SectionBlog = () => {
     const [blogs, setBlogs] = useState([]);
@@ -15,10 +16,7 @@ const SectionBlog = () => {
 
     const fetchBlogs = async () => {
         try {
-            const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/blog/blogs", {
-                method: "GET",
-                credentials: "include"
-            });
+            const response = await apiGet('/blog/blogs');
 
             if (response.ok) {
                 const data = await response.json();

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { X, Lock, Mail } from 'lucide-react';
 import "../../../styles/Modais/ModalRecuperacao/style.css";
+import { apiPost } from '../../../config/api';
 
 export function UseModalRecuperarSenha() {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,11 +63,7 @@ export function ModalRecuperarSenha({ isOpen, onClose }) {
     setMessage('');
 
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/request-password-reset", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email })
-      });
+      const response = await apiPost('/auth/request-password-reset', { email: formData.email });
 
       if (response.ok) {
         setMessage('Código enviado para seu email!');
@@ -103,14 +100,10 @@ export function ModalRecuperarSenha({ isOpen, onClose }) {
     setMessage('');
 
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/reset-password", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          token: formData.codigo,
-          novaSenha: formData.novaSenha
-        })
+      const response = await apiPost('/auth/reset-password', {
+        email: formData.email,
+        token: formData.codigo,
+        novaSenha: formData.novaSenha
       });
 
       if (response.ok) {

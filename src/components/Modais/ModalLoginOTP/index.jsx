@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { X, Mail, Key } from 'lucide-react';
 import "../../../styles/Modais/ModalOTP/style.css";
+import { apiPost } from '../../../config/api';
 
 export function UseModalLoginOTP() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,11 +48,7 @@ export function ModalLoginOTP({ isOpen, onClose, onSuccess }) {
     setMessage('');
 
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/request-otp", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
+      const response = await apiPost('/auth/request-otp', { email });
 
       if (response.ok) {
         setMessage('Código OTP enviado para seu email!');
@@ -88,12 +85,7 @@ export function ModalLoginOTP({ isOpen, onClose, onSuccess }) {
     setMessage('');
 
     try {
-      const response = await fetch("https://backend-tcc-cgbwa9c6gjd5bjfr.brazilsouth-01.azurewebsites.net/auth/login-otp", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ email, token: codigo })
-      });
+      const response = await apiPost('/auth/login-otp', { email, token: codigo });
 
       if (response.ok) {
         const data = await response.json();
