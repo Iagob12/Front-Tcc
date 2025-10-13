@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../../styles/Cadastro/Capa/style.css"
-import logo from "../../../assets/Logos/logo.svg"
+import logo from "../../../assets/Logos/Logo.svg"
 
 const CapaCadastro = ({title, img}) => {
     return (
