@@ -49,7 +49,7 @@ const PasswordValidator = ({ password, show }) => {
                 ))}
             </div>
             <p className="validator-note">
-                Caracteres aceitos: <code>! @ $ % ^ & * ( ) _ + - = [ ] {'{}'} | ; ' : " \ , . / {'<'} {'>'} ?</code>
+                <strong>Caracteres especiais:</strong> <code>! @ $ % & * _ - + =</code>
             </p>
             {allValid && (
                 <p className="validator-success">✓ Senha forte!</p>

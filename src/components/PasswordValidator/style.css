@@ -1,92 +1,101 @@
 .password-validator {
-    margin-top: 8px;
-    padding: 10px 12px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
+    margin-top: 10px;
+    padding: 12px 16px;
+    background: var(--color-grey-light);
+    border-radius: 15px;
+    border: 1px solid var(--color-grey-medium);
 }
 
 .validator-title {
-    margin: 0 0 8px 0;
-    font-size: 12px;
+    margin: 0 0 10px 0;
+    font-size: 13px;
     font-weight: 600;
-    color: #495057;
+    color: var(--color-grey-dark);
 }
 
 .validator-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px 12px;
-    margin-bottom: 8px;
+    gap: 8px 16px;
+    margin-bottom: 10px;
 }
 
 .validator-item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 12px;
+    gap: 8px;
+    font-size: 13px;
     transition: all 0.2s ease;
 }
 
 .validator-icon {
     flex-shrink: 0;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
 }
 
 .validator-item.valid .validator-icon {
-    background: #10b981;
-    color: white;
+    background: var(--color-secondary);
+    color: var(--color-white);
 }
 
 .validator-item.invalid .validator-icon {
-    background: #e9ecef;
-    color: #adb5bd;
+    background: var(--color-grey-medium);
+    color: var(--color-white);
 }
 
 .validator-item.valid .validator-text {
-    color: #10b981;
-    font-weight: 500;
+    color: var(--color-secondary);
+    font-weight: 600;
 }
 
 .validator-item.invalid .validator-text {
-    color: #6c757d;
+    color: var(--color-grey);
 }
 
 .validator-note {
-    margin: 8px 0 0 0;
-    padding: 6px 8px;
-    background: #fff3cd;
-    border: 1px solid #ffc107;
-    border-radius: 4px;
-    font-size: 11px;
-    color: #856404;
-    line-height: 1.4;
+    margin: 10px 0 0 0;
+    padding: 8px 12px;
+    background: var(--color-white);
+    border: 1px solid var(--color-grey-medium);
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--color-grey-dark);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.validator-note strong {
+    color: var(--color-secondary);
+    font-weight: 600;
 }
 
 .validator-note code {
-    background: rgba(0, 0, 0, 0.05);
-    padding: 2px 4px;
-    border-radius: 3px;
+    display: inline;
+    margin-left: 4px;
+    padding: 3px 8px;
+    background: var(--color-grey-light);
+    border-radius: 6px;
     font-family: 'Courier New', monospace;
-    font-size: 10px;
-    word-break: break-all;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-secondary);
+    letter-spacing: 2px;
 }
 
 .validator-success {
-    margin: 8px 0 0 0;
-    padding: 6px 10px;
-    background: #d1fae5;
-    border: 1px solid #10b981;
-    border-radius: 6px;
-    color: #047857;
-    font-size: 12px;
+    margin: 10px 0 0 0;
+    padding: 8px 12px;
+    background: var(--color-secondary);
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 13px;
     font-weight: 600;
     text-align: center;
 }
@@ -95,5 +104,9 @@
 @media (max-width: 480px) {
     .validator-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .password-validator {
+        padding: 10px 12px;
     }
 }
