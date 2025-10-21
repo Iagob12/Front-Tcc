@@ -14,19 +14,19 @@ const PasswordValidator = ({ password, show }) => {
         },
         {
             test: /[A-Z]/.test(password),
-            message: 'Maiúscula (A-Z)'
+            message: 'Maiúscula'
         },
         {
             test: /[a-z]/.test(password),
-            message: 'Minúscula (a-z)'
+            message: 'Minúscula'
         },
         {
             test: /[0-9]/.test(password),
-            message: 'Número (0-9)'
+            message: 'Número'
         },
         {
             test: specialCharsRegex.test(password),
-            message: 'Especial (!@$%&*...)'
+            message: 'Especial (!@$%...)'
         }
     ];
 
@@ -48,9 +48,10 @@ const PasswordValidator = ({ password, show }) => {
                     </div>
                 ))}
             </div>
-            <p className="validator-note">
-                <strong>Caracteres especiais:</strong> <code>! @ $ % & * _ - + =</code>
-            </p>
+            <div className="validator-note">
+                <span className="note-label">Especiais aceitos:</span>
+                <span className="note-chars">! @ $ % & * _ -</span>
+            </div>
             {allValid && (
                 <p className="validator-success">✓ Senha forte!</p>
             )}

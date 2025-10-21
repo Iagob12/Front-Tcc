@@ -1,13 +1,13 @@
 .password-validator {
     margin-top: 10px;
-    padding: 12px 16px;
+    padding: 14px 18px;
     background: var(--color-grey-light);
-    border-radius: 15px;
+    border-radius: 20px;
     border: 1px solid var(--color-grey-medium);
 }
 
 .validator-title {
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
     font-size: 13px;
     font-weight: 600;
     color: var(--color-grey-dark);
@@ -15,28 +15,28 @@
 
 .validator-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px 16px;
-    margin-bottom: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 12px;
+    margin-bottom: 12px;
 }
 
 .validator-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
+    gap: 6px;
+    font-size: 12px;
     transition: all 0.2s ease;
 }
 
 .validator-icon {
     flex-shrink: 0;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
 }
 
@@ -60,43 +60,36 @@
 }
 
 .validator-note {
-    margin: 10px 0 0 0;
-    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 14px;
     background: var(--color-white);
-    border: 1px solid var(--color-grey-medium);
-    border-radius: 10px;
+    border-radius: 15px;
+    border: 1px solid var(--color-grey-light);
+}
+
+.note-label {
     font-size: 12px;
     color: var(--color-grey-dark);
-    line-height: 1.5;
-    text-align: center;
-    white-space: nowrap;
-    overflow-x: auto;
+    font-weight: 500;
 }
 
-.validator-note strong {
-    color: var(--color-secondary);
-    font-weight: 600;
-}
-
-.validator-note code {
-    display: inline;
-    margin-left: 4px;
-    padding: 3px 8px;
-    background: var(--color-grey-light);
-    border-radius: 6px;
+.note-chars {
     font-family: 'Courier New', monospace;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: var(--color-secondary);
-    letter-spacing: 2px;
-    white-space: nowrap;
+    letter-spacing: 4px;
 }
 
 .validator-success {
-    margin: 10px 0 0 0;
-    padding: 8px 12px;
+    margin: 12px 0 0 0;
+    padding: 10px 14px;
     background: var(--color-secondary);
-    border-radius: 10px;
+    border-radius: 15px;
     color: var(--color-white);
     font-size: 13px;
     font-weight: 600;
@@ -104,12 +97,23 @@
 }
 
 /* Responsividade para telas menores */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+    .validator-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 400px) {
     .validator-grid {
         grid-template-columns: 1fr;
     }
     
     .password-validator {
-        padding: 10px 12px;
+        padding: 12px 14px;
+    }
+    
+    .note-chars {
+        font-size: 14px;
+        letter-spacing: 3px;
     }
 }
