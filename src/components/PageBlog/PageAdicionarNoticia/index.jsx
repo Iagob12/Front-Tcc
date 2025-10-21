@@ -5,9 +5,12 @@ import { X, Check } from "lucide-react";
 import Button from "../../Button";
 import { useNavigate } from "react-router-dom";
 import { apiPost } from '../../../config/api';
+import { useToast } from '../../Toast/useToast';
+import ToastContainer from '../../Toast/ToastContainer';
 
 const AdicionarNoticia = () => {
   const navigate = useNavigate();
+  const toast = useToast();
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,15 +24,17 @@ const AdicionarNoticia = () => {
     if (file) {
       // Validar tipo de arquivo
       if (!file.type.startsWith('image/')) {
-        alert("Por favor, selecione apenas arquivos de imagem.");
+        toast.warning("Por favor, selecione apenas arquivos de imagem.");
         return;
       }
       
       // Validar tamanho (máximo 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        alert("A imagem deve ter no máximo 5MB.");
+        toast.warning("A imagem deve ter no máximo 5MB.");
         return;
       }
+      
+      toast.success("Imagem carregada com sucesso!");
       
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
@@ -43,7 +48,7 @@ const AdicionarNoticia = () => {
 
   const confirmImage = () => {
     if (imageFile) {
-      alert("Imagem confirmada!");
+      toast.success("Imagem confirmada!");
     }
   };
 
@@ -61,12 +66,12 @@ const AdicionarNoticia = () => {
     
     // Validação básica
     if (!formData.tituloMateria || !formData.informacao) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
+      toast.warning("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
     if (!imageFile) {
-      alert("Por favor, selecione uma imagem para a notícia.");
+      toast.warning("Por favor, selecione uma imagem para a notícia.");
       return;
     }
 
@@ -90,38 +95,40 @@ const AdicionarNoticia = () => {
           });
 
           if (response.ok) {
-            alert("Notícia enviada com sucesso! Aguarde a aprovação de um administrador.");
-            navigate("/blog");
+            toast.success("Notícia enviada com sucesso! Aguarde a aprovação de um administrador.");
+            setTimeout(() => navigate("/blog"), 1500);
           } else if (response.status === 401) {
-            alert("Você precisa estar logado para criar uma notícia.");
-            navigate("/login");
+            toast.error("Você precisa estar logado para criar uma notícia.");
+            setTimeout(() => navigate("/login"), 1500);
           } else {
             const error = await response.json();
-            alert(error.message || "Erro ao enviar notícia.");
+            toast.error(error.message || "Erro ao enviar notícia.");
           }
         } catch (error) {
           console.error("Erro:", error);
-          alert("Erro ao enviar notícia: " + error.message);
+          toast.error("Erro ao enviar notícia. Tente novamente.");
         } finally {
           setLoading(false);
         }
       };
 
       reader.onerror = () => {
-        alert("Erro ao processar a imagem.");
+        toast.error("Erro ao processar a imagem.");
         setLoading(false);
       };
 
       reader.readAsDataURL(imageFile);
     } catch (error) {
       console.error("Erro:", error);
-      alert("Erro ao processar a imagem: " + error.message);
+      toast.error("Erro ao processar a imagem. Tente novamente.");
       setLoading(false);
     }
   };
 
   return (
-    <div className="container-form-noticia">
+    <>
+      <ToastContainer toasts={toast.toasts} removeToast={toast.removeToast} />
+      <div className="container-form-noticia">
       <div className="content-form-noticia">
         <h2>Escreva uma notícia para agregar na nossa comunidade</h2>
 
@@ -188,6 +195,7 @@ const AdicionarNoticia = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
-
+import { useToast } from '../../Toast/useToast';
+import ToastContainer from '../../Toast/ToastContainer';
 import "../../../styles/Modais/ModalContato/style.css";
 
 
@@ -17,6 +18,7 @@ export function UseModalContato() {
 // Componente Modal de Contato
 export function ModalContato({ isOpen, onClose }) {
   const dialogRef = useRef(null);
+  const toast = useToast();
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -79,113 +81,116 @@ export function ModalContato({ isOpen, onClose }) {
       mensagem: ''
     });
     
-    alert('Mensagem enviada com sucesso!');
-    onClose();
+    toast.success('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+    setTimeout(() => onClose(), 1500);
   };
 
   return (
-    <dialog
-      ref={dialogRef}
-      className="modal-dialog"
-      onClick={(e) => {
-        if (e.target === dialogRef.current) {
-          onClose();
-        }
-      }}
-    >
-      <div className="modal-wrapper-contato">
-        <div className="modal-card modal-contato">
-          {/* Header */}
-          <div className="modal-header">
-            <div className="modal-breadcrumb">
-              <p>
-                <button onClick={handleHomeClick} className="breadcrumb-link">
-                  Home
-                </button>
-                {' > '}
-                <span>Fale Conosco</span>
-              </p>
+    <>
+      <ToastContainer toasts={toast.toasts} removeToast={toast.removeToast} />
+      <dialog
+        ref={dialogRef}
+        className="modal-dialog"
+        onClick={(e) => {
+          if (e.target === dialogRef.current) {
+            onClose();
+          }
+        }}
+      >
+        <div className="modal-wrapper-contato">
+          <div className="modal-card modal-contato">
+            {/* Header */}
+            <div className="modal-header">
+              <div className="modal-breadcrumb">
+                <p>
+                  <button onClick={handleHomeClick} className="breadcrumb-link">
+                    Home
+                  </button>
+                  {' > '}
+                  <span>Fale Conosco</span>
+                </p>
+              </div>
+              <button onClick={onClose} className="modal-close-btn">
+                <X />
+              </button>
             </div>
-            <button onClick={onClose} className="modal-close-btn">
-              <X />
-            </button>
-          </div>
 
-          {/* Body */}
-          <div className="modal-body">
-            <h1 className="modal-title">FORMULÁRIO DE CONTATO</h1>
+            {/* Body */}
+            <div className="modal-body">
+              <h1 className="modal-title">FORMULÁRIO DE CONTATO</h1>
 
-            <form onSubmit={handleSubmit} className="contact-form">
-              {/* Nome completo */}
-              <div className="form-group">
-                <label htmlFor="nome">Nome completo</label>
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  value={formData.nome}
-                  onChange={handleChange}
-                  placeholder="Escreva seu nome"
-                  required
-                  className="form-input"
-                />
-              </div>
+              <form onSubmit={handleSubmit} className="contact-form">
+                {/* Nome completo */}
+                <div className="form-group">
+                  <label htmlFor="nome">Nome completo</label>
+                  <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    value={formData.nome}
+                    onChange={handleChange}
+                    placeholder="Escreva seu nome"
+                    required
+                    className="form-input"
+                  />
+                </div>
 
-              {/* E-mail */}
-              <div className="form-group">
-                <label htmlFor="email">E-mail</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email@gmail.com"
-                  required
-                  className="form-input"
-                />
-              </div>
+                {/* E-mail */}
+                <div className="form-group">
+                  <label htmlFor="email">E-mail</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email@gmail.com"
+                    required
+                    className="form-input"
+                  />
+                </div>
 
-              {/* Número */}
-              <div className="form-group">
-                <label htmlFor="numero">Número</label>
-                <input
-                  type="tel"
-                  id="numero"
-                  name="numero"
-                  value={formData.numero}
-                  onChange={handleChange}
-                  placeholder="Ex: dd xxxxx-xxxx"
-                  className="form-input"
-                />
-              </div>
+                {/* Número */}
+                <div className="form-group">
+                  <label htmlFor="numero">Número</label>
+                  <input
+                    type="tel"
+                    id="numero"
+                    name="numero"
+                    value={formData.numero}
+                    onChange={handleChange}
+                    placeholder="Ex: dd xxxxx-xxxx"
+                    className="form-input"
+                  />
+                </div>
 
-              {/* Mensagem */}
-              <div className="form-group">
-                <label htmlFor="mensagem">Mensagem</label>
-                <textarea
-                  id="mensagem"
-                  name="mensagem"
-                  value={formData.mensagem}
-                  onChange={handleChange}
-                  placeholder="Escreva escreva aqui a mensagem"
-                  required
-                  rows="5"
-                  className="form-textarea"
-                />
-              </div>
+                {/* Mensagem */}
+                <div className="form-group">
+                  <label htmlFor="mensagem">Mensagem</label>
+                  <textarea
+                    id="mensagem"
+                    name="mensagem"
+                    value={formData.mensagem}
+                    onChange={handleChange}
+                    placeholder="Escreva aqui a mensagem"
+                    required
+                    rows="5"
+                    className="form-textarea"
+                  />
+                </div>
 
-              {/* Botão Enviar */}
-              <div className="form-submit">
-                <button type="submit" className="btn-submit">
-                  Enviar
-                </button>
-              </div>
-            </form>
+                {/* Botão Enviar */}
+                <div className="form-submit">
+                  <button type="submit" className="btn-submit">
+                    Enviar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </dialog>
+      </dialog>
+    </>
   );
 }
 

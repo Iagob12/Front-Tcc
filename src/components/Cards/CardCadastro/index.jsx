@@ -9,6 +9,9 @@ import { ModalVerificarEmail, UseModalVerificarEmail } from "../../Modais/ModalV
 import { ModalRecuperarSenha, UseModalRecuperarSenha } from "../../Modais/ModalRecuperarSenha";
 import { ModalLoginOTP, UseModalLoginOTP } from "../../Modais/ModalLoginOTP";
 import { apiPost, createApiUrl } from '../../../config/api';
+import { useToast } from '../../Toast/useToast';
+import ToastContainer from '../../Toast/ToastContainer';
+import PasswordValidator from '../../PasswordValidator';
 
 const CardCadastro = ({ title, action }) => {
     const navigate = useNavigate();
@@ -25,6 +28,8 @@ const CardCadastro = ({ title, action }) => {
     });
 
     const [loading, setLoading] = useState(false);
+    const [showPasswordValidator, setShowPasswordValidator] = useState(false);
+    const toast = useToast();
 
     const handleChange = (e) => {
         setFormData({
@@ -60,22 +65,36 @@ const CardCadastro = ({ title, action }) => {
                 const data = await response.json();
                 
                 if (title === "Login") {
+                    toast.success("Login realizado com sucesso!");
                     // Cookie já foi definido pelo backend
                     // Disparar evento para atualizar o Header
                     window.dispatchEvent(new Event('loginSuccess'));
-                    navigate("/");
+                    setTimeout(() => navigate("/"), 500);
                 } else {
                     // Cadastro bem-sucedido - modal já está aberto
+                    toast.success("Cadastro realizado! Verifique seu e-mail.");
                     console.log("✅ Cadastro realizado! Email enviado.");
                 }
             } else if (response.status === 401) {
-                alert("E-mail ou senha incorretos.");
+                toast.error("E-mail ou senha incorretos.");
             } else if (response.status === 403) {
                 const error = await response.json();
-                alert(error.message || "Email não verificado.");
+                toast.warning(error.message || "Email não verificado. Verifique sua caixa de entrada.");
+            } else if (response.status === 400) {
+                const error = await response.json();
+                // Mensagem específica para erro de validação de senha
+                if (error.message && error.message.includes("senha")) {
+                    toast.error("Senha não atende aos requisitos de segurança. Verifique as orientações abaixo.");
+                } else {
+                    toast.error(error.message || "Dados inválidos. Verifique os campos.");
+                }
+                // Se for cadastro e deu erro, fechar o modal
+                if (title !== "Login") {
+                    modalVerificarEmail.close();
+                }
             } else {
                 const error = await response.json();
-                alert(error.message || "Erro ao processar requisição.");
+                toast.error(error.message || "Erro ao processar requisição.");
                 // Se for cadastro e deu erro, fechar o modal
                 if (title !== "Login") {
                     modalVerificarEmail.close();
@@ -83,7 +102,7 @@ const CardCadastro = ({ title, action }) => {
             }
         } catch (error) {
             console.error("Erro:", error);
-            alert("Erro ao conectar com o servidor.");
+            toast.error("Erro ao conectar com o servidor. Verifique sua conexão.");
             // Se for cadastro e deu erro, fechar o modal
             if (title !== "Login") {
                 modalVerificarEmail.close();
@@ -99,8 +118,10 @@ const CardCadastro = ({ title, action }) => {
     };
 
     return (
-        <div className="background-card">
-            <div className="card-formulario">
+        <>
+            <ToastContainer toasts={toast.toasts} removeToast={toast.removeToast} />
+            <div className="background-card">
+                <div className="card-formulario">
                 <h1>{title}</h1>
                 <div className="inputs">
                     {title !== "Login" && (
@@ -132,8 +153,16 @@ const CardCadastro = ({ title, action }) => {
                             name="senha"
                             value={formData.senha}
                             onChange={handleChange}
+                            onFocus={() => title !== "Login" && setShowPasswordValidator(true)}
+                            onBlur={() => setShowPasswordValidator(false)}
                             required
                         />
+                        {title !== "Login" && (
+                            <PasswordValidator 
+                                password={formData.senha} 
+                                show={showPasswordValidator || formData.senha.length > 0}
+                            />
+                        )}
                     </div>
                 </div>
 
@@ -215,7 +244,8 @@ const CardCadastro = ({ title, action }) => {
                 onClose={modalLoginOTP.close}
                 onSuccess={() => navigate("/")}
             />
-        </div>
+            </div>
+        </>
     );
 };
 
