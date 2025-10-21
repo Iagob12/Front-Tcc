@@ -69,6 +69,8 @@
     color: var(--color-grey-dark);
     line-height: 1.5;
     text-align: center;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 
 .validator-note strong {
@@ -87,6 +89,7 @@
     font-weight: 600;
     color: var(--color-secondary);
     letter-spacing: 2px;
+    white-space: nowrap;
 }
 
 .validator-success {
