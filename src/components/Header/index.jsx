@@ -8,10 +8,22 @@ import { User, X } from 'lucide-react';
 
 const Header = () => {
   const [aberto, setAberto] = useState(false);
-  const [logado, setLogado] = useState(false);
-  const [carregando, setCarregando] = useState(true); // Estado de carregamento
+  
+  // Inicializa o estado de login com cache do localStorage para evitar "piscar"
+  const [logado, setLogado] = useState(() => {
+    const cached = localStorage.getItem('userLoggedIn');
+    return cached === 'true';
+  });
+  
+  const [carregando, setCarregando] = useState(false); // Não mostra loading inicial
   const [perfilAberto, setPerfilAberto] = useState(false);
-  const [userData, setUserData] = useState(null);
+  
+  // Inicializa userData com cache do localStorage
+  const [userData, setUserData] = useState(() => {
+    const cached = localStorage.getItem('userData');
+    return cached ? JSON.parse(cached) : null;
+  });
+  
   const perfilRef = useRef(null);
   const navigate = useNavigate();
 
@@ -29,20 +41,34 @@ const Header = () => {
           const data = await response.json();
           console.log("✅ Usuário logado:", data);
           setLogado(true);
-          setUserData(data); // Armazena dados do usuário
+          setUserData(data);
+          
+          // Salva no localStorage para cache
+          localStorage.setItem('userLoggedIn', 'true');
+          localStorage.setItem('userData', JSON.stringify(data));
         } else {
           console.log("❌ Usuário não logado");
           setLogado(false);
           setUserData(null);
+          
+          // Limpa o cache
+          localStorage.removeItem('userLoggedIn');
+          localStorage.removeItem('userData');
         }
       } catch (error) {
         console.error("❌ Erro ao verificar login:", error);
         setLogado(false);
         setUserData(null);
+        
+        // Limpa o cache em caso de erro
+        localStorage.removeItem('userLoggedIn');
+        localStorage.removeItem('userData');
       } finally {
-        setCarregando(false); // Finaliza o carregamento
+        setCarregando(false);
       }
     };
+    
+    // Executa a verificação em background
     checkLogin();
     
     // Escuta evento customizado para atualizar o estado após login
@@ -79,6 +105,11 @@ const Header = () => {
         setLogado(false);
         setUserData(null);
         setPerfilAberto(false);
+        
+        // Limpa o cache do localStorage
+        localStorage.removeItem('userLoggedIn');
+        localStorage.removeItem('userData');
+        
         navigate("/");
         window.location.reload();
       } else {
@@ -137,9 +168,7 @@ const Header = () => {
           </Link>
 
           <div style={{ minWidth: '150px', position: 'relative' }} ref={perfilRef}>
-            {carregando ? (
-              <div style={{ width: '150px', height: '40px' }}></div>
-            ) : logado ? (
+            {logado ? (
               <>
                 <button 
                   className="profile-icon-btn" 
