@@ -10,9 +10,9 @@ const Header = () => {
   const [aberto, setAberto] = useState(false);
   const [logado, setLogado] = useState(false);
   const [carregando, setCarregando] = useState(true); // Estado de carregamento
-  const [modalPerfilAberto, setModalPerfilAberto] = useState(false);
+  const [perfilAberto, setPerfilAberto] = useState(false);
   const [userData, setUserData] = useState(null);
-  const dialogRef = useRef(null);
+  const perfilRef = useRef(null);
   const navigate = useNavigate();
 
   console.log("🎨 Header renderizado - Estado logado:", logado, "Carregando:", carregando);
@@ -53,23 +53,22 @@ const Header = () => {
     };
   }, []);
 
-  // Controla o modal de perfil
+  // Fecha o dropdown de perfil ao clicar fora
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
+    const handleClickOutside = (event) => {
+      if (perfilRef.current && !perfilRef.current.contains(event.target)) {
+        setPerfilAberto(false);
+      }
+    };
 
-    if (modalPerfilAberto) {
-      dialog.showModal();
-      document.body.style.overflow = 'hidden';
-    } else {
-      dialog.close();
-      document.body.style.overflow = 'unset';
+    if (perfilAberto) {
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [modalPerfilAberto]);
+  }, [perfilAberto]);
 
   const handleLogout = async () => {
     try {
@@ -79,7 +78,7 @@ const Header = () => {
         console.log("✅ Logout realizado com sucesso");
         setLogado(false);
         setUserData(null);
-        setModalPerfilAberto(false);
+        setPerfilAberto(false);
         navigate("/");
         window.location.reload();
       } else {
@@ -137,17 +136,61 @@ const Header = () => {
             <Button text="Doe Agora" primary={true} />
           </Link>
 
-          <div style={{ minWidth: '150px' }}>
+          <div style={{ minWidth: '150px', position: 'relative' }} ref={perfilRef}>
             {carregando ? (
               <div style={{ width: '150px', height: '40px' }}></div>
             ) : logado ? (
-              <button 
-                className="profile-icon-btn" 
-                onClick={() => setModalPerfilAberto(true)}
-                aria-label="Abrir perfil"
-              >
-                <User size={24} strokeWidth={2} />
-              </button>
+              <>
+                <button 
+                  className="profile-icon-btn" 
+                  onClick={() => setPerfilAberto(!perfilAberto)}
+                  aria-label="Abrir perfil"
+                >
+                  <User size={24} strokeWidth={2} />
+                </button>
+
+                {/* Dropdown de Perfil */}
+                <div className={`perfil-dropdown ${perfilAberto ? 'ativo' : 'inativo'}`}>
+                  {/* Informações do Usuário */}
+                  <div className="perfil-user-info">
+                    <div className="perfil-avatar">
+                      <User size={32} strokeWidth={2} />
+                    </div>
+                    <div className="perfil-details">
+                      <h3 className="perfil-name">{userData?.nome || 'Usuário'}</h3>
+                      <p className="perfil-email">{userData?.email || 'voluntario@gmail.com'}</p>
+                    </div>
+                  </div>
+
+                  {/* Badge */}
+                  <div className="perfil-badge">
+                    <div className="perfil-badge-dot"></div>
+                    <span className="perfil-badge-text">{userData?.tipo || 'Voluntário'}</span>
+                  </div>
+
+                  {/* Divisor */}
+                  <div className="perfil-divider"></div>
+
+                  {/* Seção de Acesso */}
+                  <div className="perfil-section">
+                    <h4 className="perfil-section-title">ACESSO</h4>
+                    <button className="perfil-menu-item" onClick={handleEditarPerfil}>
+                      Editar perfil
+                    </button>
+                    <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
+                      Área de voluntários
+                    </button>
+                  </div>
+
+                  {/* Divisor */}
+                  <div className="perfil-divider"></div>
+
+                  {/* Logout */}
+                  <button className="perfil-logout" onClick={handleLogout}>
+                    Fazer logout
+                  </button>
+                </div>
+              </>
             ) : (
               <Link to="/cadastrar-se">
                 <Button text="Cadastrar-se →" primary={false} />
@@ -156,75 +199,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-
-      {/* Modal de Perfil */}
-      <dialog
-        ref={dialogRef}
-        className="modal-dialog-perfil"
-        onClick={(e) => {
-          if (e.target === dialogRef.current) {
-            setModalPerfilAberto(false);
-          }
-        }}
-      >
-        <div className="modal-wrapper-perfil">
-          <div className="modal-card-perfil">
-            {/* Header */}
-            <div className="modal-header-perfil">
-              <h2 className="modal-title-perfil">PERFIL</h2>
-              <button 
-                onClick={() => setModalPerfilAberto(false)} 
-                className="modal-close-btn-perfil"
-                aria-label="Fechar modal"
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* Body */}
-            <div className="modal-body-perfil">
-              {/* Informações do Usuário */}
-              <div className="user-info-section">
-                <div className="user-avatar">
-                  <User size={40} strokeWidth={2} />
-                </div>
-                <div className="user-details">
-                  <h3 className="user-name">{userData?.nome || 'Usuário'}</h3>
-                  <p className="user-email">{userData?.email || 'voluntario@gmail.com'}</p>
-                </div>
-              </div>
-
-              {/* Badge de Tipo de Usuário */}
-              <div className="user-badge">
-                <div className="badge-dot"></div>
-                <span className="badge-text">{userData?.tipo || 'Voluntário'}</span>
-              </div>
-
-              {/* Divisor */}
-              <div className="divider-perfil"></div>
-
-              {/* Seção de Acesso */}
-              <div className="access-section">
-                <h4 className="section-title-perfil">ACESSO</h4>
-                <button className="menu-item-perfil" onClick={handleEditarPerfil}>
-                  Editar perfil
-                </button>
-                <button className="menu-item-perfil" onClick={handleAreaVoluntarios}>
-                  Área de voluntários
-                </button>
-              </div>
-
-              {/* Divisor */}
-              <div className="divider-perfil"></div>
-
-              {/* Botão de Logout */}
-              <button className="logout-btn-perfil" onClick={handleLogout}>
-                Fazer logout
-              </button>
-            </div>
-          </div>
-        </div>
-      </dialog>
     </>
   );
 };
