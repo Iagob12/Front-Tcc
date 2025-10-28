@@ -10,6 +10,7 @@ import TornarVoluntario from "./pages/TornarVoluntario";
 import SobreNos from "./pages/SobreNos";
 import Blog from "./pages/Blog";
 import AdicionarNoticia from "./pages/AdicionarNoticia";
+import AdicionarEvento from "./pages/AdicionarEvento";
 import OAuth2Callback from "./pages/OAuth2Callback";
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/quero-ser-voluntario" element={<TornarVoluntario />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/adicionar-noticia" element={<AdicionarNoticia />} />
+        <Route path="/adicionar-evento" element={<AdicionarEvento />} />
       </Routes>
     </>
   );
