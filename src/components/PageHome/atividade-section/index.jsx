@@ -6,13 +6,12 @@ import box from "../../../assets/Home/icon-box.png"
 import capoeira from "../../../assets/Home/icon-capoeira.png"
 import danca from "../../../assets/Home/icon-danca.png"
 import muayThai from "../../../assets/Home/icon-muay.png"
+import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from "react";
 import ModalAtividades from "../../Modais/ModalAtividades";
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
-
-
 
 const AtividadeSection = () => {
 
@@ -63,6 +62,11 @@ const AtividadeSection = () => {
             ))}
           </Swiper>
         </div>
+        
+        {/*Só deve aparecer se a role do usuário LOGADO for ADMIN */}
+        <Link to="/adicionar-atividade" id="btn-blog" className="btn-link">
+          + Adicionar atividade
+        </Link>
       </section>
 
       {atividadeSelecionada && (

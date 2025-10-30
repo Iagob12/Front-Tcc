@@ -6,12 +6,19 @@ const AdicionarEvento = () => {
   return (
     <>
       <div className="container-form-evento">
+        {/*Aqui será a lógica para quando for atualizar, será "Editar evento" */}
         <h1 className="titulo-form-evento">Novo evento</h1>
         <div className="content-form-evento">
           <form className="form-evento">
 
             <label htmlFor="nome">Nome</label>
             <input name="nome" type="text" placeholder="Nome do evento" />
+
+            <div className="data-hora">
+              <label htmlFor="data">Data e hora</label>
+              <input name="data" type="date" />
+              <input name="data" type="time" />
+            </div>
 
             {/* Input com data e hora (seletor) */}
             <div className="local-estado">
