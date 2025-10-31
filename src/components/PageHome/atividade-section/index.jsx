@@ -12,11 +12,12 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { useState } from "react";
 import ModalAtividades from "../../Modais/ModalAtividades";
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
+import { useAuth } from "../../../hooks/useAuth";
 
 const AtividadeSection = () => {
 
   const modal = UseModalAtividades();
-
+  const { isAdmin } = useAuth();
 
   const [atividadeSelecionada, setAtividadeSelecionada] = useState(null);
 
@@ -63,10 +64,12 @@ const AtividadeSection = () => {
           </Swiper>
         </div>
         
-        {/*Só deve aparecer se a role do usuário LOGADO for ADMIN */}
-        <Link to="/adicionar-atividade" id="btn-blog" className="btn-link">
-          + Adicionar atividade
-        </Link>
+        {/* Botão só aparece se o usuário for ADMIN */}
+        {isAdmin && (
+          <Link to="/adicionar-atividade" id="btn-blog" className="btn-link">
+            + Adicionar atividade
+          </Link>
+        )}
       </section>
 
       {atividadeSelecionada && (
