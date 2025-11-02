@@ -1,6 +1,8 @@
+import PageSistemaAprovação from "../../../pages/SistemaAprovacao"
 import "../../../styles/Home/Email-section/style.css"
 import Button from "../../Button"
 import Title from "../../Title"
+import { Link } from "react-router-dom"
 
 const EmailSection = ()=>{
     return(
@@ -14,7 +16,6 @@ const EmailSection = ()=>{
                         <p>receba as notificações dos nossos eventos e fique por dentro!</p>
                     </div>
                     
-
                     <div className="email-input">
                         <form>
                             <input type="email" placeholder="Seu email aqui"/>
@@ -25,7 +26,9 @@ const EmailSection = ()=>{
                
                 </div>
             </div>
-
+            {/* <Link to="/sistema-aprovacao" id="btn-blog" className="btn-link">
+                    Sistema de aprovação
+            </Link> */}
         </section>
         </>
     )

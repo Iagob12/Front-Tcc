@@ -207,7 +207,13 @@ const Header = () => {
                       Editar perfil
                     </button>
                     <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
-                      Área de voluntários
+                      Acessar relatórios
+                    </button>
+                    <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
+                      Sistema de aprovação
+                    </button>
+                    <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
+                      Escalas
                     </button>
                   </div>
 

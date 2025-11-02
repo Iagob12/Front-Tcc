@@ -14,6 +14,7 @@ import AdicionarEvento from "./pages/AdicionarEvento";
 import AdicionarAtividade from "./pages/AdicionarAtividade";
 import OAuth2Callback from "./pages/OAuth2Callback";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PageSistemaAprovacao from "./pages/SistemaAprovacao";
 
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
         <Route path="/voluntario" element={<TornarVoluntario />} />
         <Route path="/quero-ser-voluntario" element={<TornarVoluntario />} />
         <Route path="/blog" element={<Blog />} />
+
+        { /*Rotas de acesso e permissões */}
         <Route path="/adicionar-noticia" element={
           <ProtectedRoute requireAdmin={true}>
             <AdicionarNoticia />
@@ -47,6 +50,7 @@ const App = () => {
             <AdicionarAtividade />
           </ProtectedRoute>
         } />
+        <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao/>} />
       </Routes>
     </>
   );
