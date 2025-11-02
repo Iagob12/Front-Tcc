@@ -15,6 +15,7 @@ import AdicionarAtividade from "./pages/AdicionarAtividade";
 import OAuth2Callback from "./pages/OAuth2Callback";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PageSistemaAprovacao from "./pages/SistemaAprovacao";
+import PageRelatorios from "./pages/PageRelatorios"
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
           </ProtectedRoute>
         } />
         <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao/>} />
+        <Route path="/gerenciar-relatorios" element={<PageRelatorios/>} />
       </Routes>
     </>
   );

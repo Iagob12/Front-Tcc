@@ -2,13 +2,13 @@ import PageSistemaAprovação from "../../../pages/SistemaAprovacao"
 import "../../../styles/Home/Email-section/style.css"
 import Button from "../../Button"
 import Title from "../../Title"
+import { Link } from "react-router-dom"
 
 const EmailSection = ()=>{
     return(
         <>
         <section className="email-section">
             <div className="email-container">
-                
                 <div className="email-content">
                     <div className="email-info">
                         <h2>Fique por dentro!</h2>

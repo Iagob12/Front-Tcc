@@ -8,22 +8,22 @@ import { User, X } from 'lucide-react';
 
 const Header = () => {
   const [aberto, setAberto] = useState(false);
-  
+
   // Inicializa o estado de login com cache do localStorage para evitar "piscar"
   const [logado, setLogado] = useState(() => {
     const cached = localStorage.getItem('userLoggedIn');
     return cached === 'true';
   });
-  
+
   const [carregando, setCarregando] = useState(false); // Não mostra loading inicial
   const [perfilAberto, setPerfilAberto] = useState(false);
-  
+
   // Inicializa userData com cache do localStorage
   const [userData, setUserData] = useState(() => {
     const cached = localStorage.getItem('userData');
     return cached ? JSON.parse(cached) : null;
   });
-  
+
   const perfilRef = useRef(null);
   const navigate = useNavigate();
 
@@ -36,13 +36,13 @@ const Header = () => {
         console.log("🔍 Verificando login...");
         const response = await apiGet('/auth/check');
         console.log("📡 Resposta do /auth/check:", response.status);
-        
+
         if (response.ok) {
           const data = await response.json();
           console.log("✅ Usuário logado:", data);
           setLogado(true);
           setUserData(data);
-          
+
           // Salva no localStorage para cache
           localStorage.setItem('userLoggedIn', 'true');
           localStorage.setItem('userData', JSON.stringify(data));
@@ -50,7 +50,7 @@ const Header = () => {
           console.log("❌ Usuário não logado");
           setLogado(false);
           setUserData(null);
-          
+
           // Limpa o cache
           localStorage.removeItem('userLoggedIn');
           localStorage.removeItem('userData');
@@ -59,7 +59,7 @@ const Header = () => {
         console.error("❌ Erro ao verificar login:", error);
         setLogado(false);
         setUserData(null);
-        
+
         // Limpa o cache em caso de erro
         localStorage.removeItem('userLoggedIn');
         localStorage.removeItem('userData');
@@ -67,13 +67,13 @@ const Header = () => {
         setCarregando(false);
       }
     };
-    
+
     // Executa a verificação em background
     checkLogin();
-    
+
     // Escuta evento customizado para atualizar o estado após login
     window.addEventListener('loginSuccess', checkLogin);
-    
+
     return () => {
       window.removeEventListener('loginSuccess', checkLogin);
     };
@@ -99,17 +99,17 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       const response = await apiPost('/auth/logout', {});
-      
+
       if (response.ok) {
         console.log("✅ Logout realizado com sucesso");
         setLogado(false);
         setUserData(null);
         setPerfilAberto(false);
-        
+
         // Limpa o cache do localStorage
         localStorage.removeItem('userLoggedIn');
         localStorage.removeItem('userData');
-        
+
         navigate("/");
         window.location.reload();
       } else {
@@ -124,10 +124,6 @@ const Header = () => {
 
   const handleEditarPerfil = () => {
     alert('Funcionalidade de editar perfil ainda não está disponível');
-  };
-
-  const handleAreaVoluntarios = () => {
-    alert('Funcionalidade de área de voluntários ainda não está disponível');
   };
 
   return (
@@ -170,8 +166,8 @@ const Header = () => {
           <div style={{ minWidth: '150px', position: 'relative' }} ref={perfilRef}>
             {logado ? (
               <>
-                <button 
-                  className="profile-icon-btn" 
+                <button
+                  className="profile-icon-btn"
                   onClick={() => setPerfilAberto(!perfilAberto)}
                   aria-label="Abrir perfil"
                 >
@@ -206,13 +202,17 @@ const Header = () => {
                     <button className="perfil-menu-item" onClick={handleEditarPerfil}>
                       Editar perfil
                     </button>
-                    <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
-                      Acessar relatórios
+                    <button className="perfil-menu-item">
+                      <Link className="perfil-menu-item" to="gerenciar-relatorios">
+                        Acessar relatórios
+                      </Link>
                     </button>
-                    <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
-                      Sistema de aprovação
+                    <button>
+                      <Link className="perfil-menu-item" to="sistema-aprovacao">
+                        Sistema de aprovacao
+                      </Link>
                     </button>
-                    <button className="perfil-menu-item" onClick={handleAreaVoluntarios}>
+                    <button className="perfil-menu-item">
                       Escalas
                     </button>
                   </div>

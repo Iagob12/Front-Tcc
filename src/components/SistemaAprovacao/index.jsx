@@ -48,7 +48,7 @@ const SistemaAprovacao = () => {
     <>
       <Header />
       <div className="container-sistema-aprovacao">
-        <div className="dashboard-sistema">
+        <section className="dashboard-sistema">
           <div className="cabecalho-sistema-aprovacao">
             <h1>Sistema de Aprovação</h1>
             <select
@@ -108,7 +108,7 @@ const SistemaAprovacao = () => {
               </>
             )}
           </section>
-        </div>
+        </section>
       </div>
     </>
   );
