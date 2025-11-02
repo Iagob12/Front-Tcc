@@ -16,7 +16,7 @@ const SectionBlog = () => {
 
     const fetchBlogs = async () => {
         try {
-            const response = await apiGet('/blog/blogs');
+            const response = await apiGet('/blog/aprovados');
 
             if (response.ok) {
                 const data = await response.json();

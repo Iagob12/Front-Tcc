@@ -203,12 +203,12 @@ const Header = () => {
                       Editar perfil
                     </button>
                     <button className="perfil-menu-item">
-                      <Link className="perfil-menu-item" to="gerenciar-relatorios">
+                      <Link className="perfil-menu-item" to="/gerenciar-relatorios">
                         Acessar relatórios
                       </Link>
                     </button>
                     <button>
-                      <Link className="perfil-menu-item" to="sistema-aprovacao">
+                      <Link className="perfil-menu-item" to="/sistema-aprovacao">
                         Sistema de aprovacao
                       </Link>
                     </button>

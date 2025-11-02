@@ -13,7 +13,6 @@ import AdicionarNoticia from "./pages/AdicionarNoticia";
 import AdicionarEvento from "./pages/AdicionarEvento";
 import AdicionarAtividade from "./pages/AdicionarAtividade";
 import OAuth2Callback from "./pages/OAuth2Callback";
-import ProtectedRoute from "./components/ProtectedRoute";
 import PageSistemaAprovacao from "./pages/SistemaAprovacao";
 import PageRelatorios from "./pages/PageRelatorios"
 
@@ -35,23 +34,12 @@ const App = () => {
         <Route path="/quero-ser-voluntario" element={<TornarVoluntario />} />
         <Route path="/blog" element={<Blog />} />
 
-        { /*Rotas de acesso e permissões */}
-        <Route path="/adicionar-noticia" element={
-          <ProtectedRoute requireAdmin={true}>
-            <AdicionarNoticia />
-          </ProtectedRoute>
-        } />
-        <Route path="/adicionar-evento" element={
-          <ProtectedRoute requireAdmin={true}>
-            <AdicionarEvento />
-          </ProtectedRoute>
-        } />
-        <Route path="/adicionar-atividade" element={
-          <ProtectedRoute requireAdmin={true}>
-            <AdicionarAtividade />
-          </ProtectedRoute>
-        } />
+        <Route path="/adicionar-noticia" element={ <AdicionarNoticia /> } />
+        <Route path="/adicionar-evento" element={ <AdicionarEvento /> } />
+        <Route path="/adicionar-atividade" element={ <AdicionarAtividade /> } />
+        
         <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao/>} />
+        
         <Route path="/gerenciar-relatorios" element={<PageRelatorios/>} />
       </Routes>
     </>

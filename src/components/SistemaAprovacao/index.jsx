@@ -1,48 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/PageSistemaAprovacao/style.css";
 import Header from "../../components/Header";
 import CardBlog from "../../components/Cards/SistemaAprovacaoCards/AprovarBlog";
-import CardVoluntario from "../Cards/SistemaAprovacaoCards/AprovarVoluntario";
-import img from "../../assets/teste/colgate.png";
-import foto from "../../assets/teste/img.jpg";
+import { apiGet } from "../../config/api";
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return date.toLocaleDateString("pt-BR", options);
+};
 
 const SistemaAprovacao = () => {
   const [seletor, setSeletor] = useState("");
+  const [blogsPendentes, setBlogsPendentes] = useState([]);
 
-  // Arrays de exemplo (você pode buscar do backend depois)
-  const blogs = [
-    {
-      img: img,
-      nomeUsuario: "Usuario",
-      titulo: "Um titulo qualquer",
-      conteudo:
-        "Lorem ipsum dolor sit amet consectetur. Scelerisque sed et interdum auctor. Pellentesque egestas nunc sed feugiat sed tincidunt.",
-      data: "14 de agosto de 2024",
-    },
-    {
-      img: img,
-      nomeUsuario: "Usuario 2",
-      titulo: "Outro titulo",
-      conteudo:
-        "Lorem ipsum dolor sit amet consectetur. Scelerisque sed et interdum auctor. Pellentesque egestas nunc sed feugiat sed tincidunt.",
-      data: "15 de agosto de 2024",
-    },
-  ];
+  const fetchBlogsPendentes = async () => {
+    try {
+      const response = await apiGet("/blog/pendentes");
+      if (response.ok) {
+        const data = await response.json();
+        setBlogsPendentes(data);
+      } else {
+        console.error("Erro ao buscar blogs pendentes");
+      }
+    } catch (error) {
+      console.error("Erro de rede:", error);
+    }
+  };
 
-  const voluntarios = [
-    {
-      fotoPerfil: foto,
-      nomeVoluntario: "Voluntario",
-      descricao:
-        "Lorem ipsum dolor sit amet consectetur. Nunc morbi molestie id tortor volutpat mauris habitasse...",
-    },
-    {
-      fotoPerfil: foto,
-      nomeVoluntario: "Voluntario",
-      descricao:
-        "Lorem ipsum dolor sit amet consectetur. Nunc morbi molestie id tortor volutpat mauris habitasse...",
-    },
-  ];
+  useEffect(() => {
+    if (seletor === "BLOGS") {
+      fetchBlogsPendentes();
+    }
+  }, [seletor]);
 
   return (
     <>
@@ -51,10 +45,7 @@ const SistemaAprovacao = () => {
         <section className="dashboard-sistema">
           <div className="cabecalho-sistema-aprovacao">
             <h1>Sistema de Aprovação</h1>
-            <select
-              value={seletor}
-              onChange={(e) => setSeletor(e.target.value)}
-            >
+            <select value={seletor} onChange={(e) => setSeletor(e.target.value)}>
               <option value="" disabled hidden>
                 Selecione uma opção
               </option>
@@ -64,23 +55,23 @@ const SistemaAprovacao = () => {
           </div>
 
           <section className="lista-aprovar">
-            {/* Blogs */}
+            {/* Blogs Pendentes */}
             {seletor === "BLOGS" && (
               <>
-                {blogs.length > 0 ? (
-                  blogs.map((blog, index) => (
+                {blogsPendentes.length > 0 ? (
+                  blogsPendentes.map((blog, index) => (
                     <CardBlog
                       key={index}
-                      img={blog.img}
-                      nomeUsuario={blog.nomeUsuario}
-                      titulo={blog.titulo}
-                      conteudo={blog.conteudo}
-                      data={blog.data}
+                      img={blog.urlNoticia}
+                      nomeUsuario={blog.idUsuario.nome}
+                      titulo={blog.tituloMateria}
+                      conteudo={blog.informacao}
+                      data={formatDate(blog.dataPostagem)}
                     />
                   ))
                 ) : (
                   <p className="sem-solicitacoes">
-                    Não há solicitações no momento!
+                    Não há blogs pendentes no momento!
                   </p>
                 )}
               </>
@@ -88,24 +79,7 @@ const SistemaAprovacao = () => {
 
             {/* Voluntários */}
             {seletor === "VOLUNTARIOS" && (
-              <>
-                {voluntarios.length > 0 ? (
-                  <>
-                    {voluntarios.map((v, index) => (
-                      <CardVoluntario
-                        key={index}
-                        fotoPerfil={v.fotoPerfil}
-                        nomeVoluntario={v.nomeVoluntario}
-                        descricao={v.descricao}
-                      />
-                    ))}
-                  </>
-                ) : (
-                  <p className="sem-solicitacoes">
-                    Não há solicitações no momento!
-                  </p>
-                )}
-              </>
+              <p className="sem-solicitacoes">Não há solicitações de voluntários no momento!</p>
             )}
           </section>
         </section>
