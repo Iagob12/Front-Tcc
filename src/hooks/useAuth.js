@@ -24,8 +24,8 @@ export function useAuth() {
 
   const [loading, setLoading] = useState(false);
 
-  // Verifica se o usuário é ADMIN
-  const isAdmin = user?.tipo === 'ADMIN';
+  // Verifica se o usuário é ADMIN, agora pegando diretamente do localStorage
+  const isAdmin = localStorage.getItem('userData') && JSON.parse(localStorage.getItem('userData')).role === 'ADMIN';
 
   const checkAuth = async () => {
     setLoading(true);

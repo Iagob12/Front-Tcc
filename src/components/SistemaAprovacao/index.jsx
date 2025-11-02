@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import "../../styles/PageSistemaAprovacao/style.css";
 import Header from "../../components/Header";
 import CardBlog from "../../components/Cards/SistemaAprovacaoCards/AprovarBlog";
+import CardVoluntario from "../../components/Cards/SistemaAprovacaoCards/AprovarVoluntario";
 import { apiGet } from "../../config/api";
+import imgbase from "../../assets/teste/img.jpg"
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -17,6 +19,7 @@ const formatDate = (dateString) => {
 const SistemaAprovacao = () => {
   const [seletor, setSeletor] = useState("");
   const [blogsPendentes, setBlogsPendentes] = useState([]);
+  const [voluntariosPendentes, setVoluntariosPendentes] = useState([]);
 
   const fetchBlogsPendentes = async () => {
     try {
@@ -32,9 +35,25 @@ const SistemaAprovacao = () => {
     }
   };
 
+  const fetchVoluntariosPendentes = async () => {
+    try {
+      const response = await apiGet("/voluntario/listar/pendentes");
+      if (response.ok) {
+        const data = await response.json();
+        setVoluntariosPendentes(data);
+      } else {
+        console.error("Erro ao buscar voluntários pendentes");
+      }
+    } catch (error) {
+      console.error("Erro de rede:", error);
+    }
+  };
+
   useEffect(() => {
     if (seletor === "BLOGS") {
       fetchBlogsPendentes();
+    } else if (seletor === "VOLUNTARIOS") {
+      fetchVoluntariosPendentes();
     }
   }, [seletor]);
 
@@ -77,9 +96,24 @@ const SistemaAprovacao = () => {
               </>
             )}
 
-            {/* Voluntários */}
+            {/* Voluntários Pendentes */}
             {seletor === "VOLUNTARIOS" && (
-              <p className="sem-solicitacoes">Não há solicitações de voluntários no momento!</p>
+              <>
+                {voluntariosPendentes.length > 0 ? (
+                  voluntariosPendentes.map((voluntario, index) => (
+                    <CardVoluntario
+                      key={index}
+                      fotoPerfil={imgbase}
+                      descricao={voluntario.descricao}
+                      nomeVoluntario={voluntario.idUsuario.nome}
+                    />
+                  ))
+                ) : (
+                  <p className="sem-solicitacoes">
+                    Não há solicitações de voluntários no momento!
+                  </p>
+                )}
+              </>
             )}
           </section>
         </section>
