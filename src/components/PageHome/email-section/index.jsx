@@ -2,7 +2,6 @@ import PageSistemaAprovação from "../../../pages/SistemaAprovacao"
 import "../../../styles/Home/Email-section/style.css"
 import Button from "../../Button"
 import Title from "../../Title"
-import { Link } from "react-router-dom"
 
 const EmailSection = ()=>{
     return(
@@ -24,9 +23,6 @@ const EmailSection = ()=>{
                     </div>
                 </div>
             </div>
-            <Link to="/sistema-aprovacao" id="btn-blog" className="btn-link">
-                    Sistema de aprovação
-            </Link>
         </section>
         </>
     )
