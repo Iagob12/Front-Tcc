@@ -48,3 +48,9 @@
 .lista-aprovar > *:last-child {
     border-bottom: none;
 }
+
+.sem-solicitacoes{
+    text-align: center;
+    padding: 10px;
+    font-weight: 600;
+}

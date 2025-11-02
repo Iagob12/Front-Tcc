@@ -21,14 +21,12 @@ const EmailSection = ()=>{
                             <input type="email" placeholder="Seu email aqui"/>
                             <Button text="Enviar" primary={true}/>
                         </form>
-
                     </div>
-               
                 </div>
             </div>
-            {/* <Link to="/sistema-aprovacao" id="btn-blog" className="btn-link">
+            <Link to="/sistema-aprovacao" id="btn-blog" className="btn-link">
                     Sistema de aprovação
-            </Link> */}
+            </Link>
         </section>
         </>
     )
