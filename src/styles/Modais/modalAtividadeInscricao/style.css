@@ -1,0 +1,123 @@
+.modal-inscricao-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-inscricao-container {
+  background: #fff;
+  padding: 40px 50px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-inscricao-container h3 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.modal-inscricao-container .atividade-nome {
+  font-size: 20px;
+  font-weight: 600;
+  color: #b91c1c;
+  margin: 10px 0;
+}
+
+.modal-inscricao-container .vagas-disponiveis {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.modal-inscricao-container .vagas-disponiveis strong {
+  color: #b91c1c;
+  font-size: 18px;
+}
+
+.modal-inscricao-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-inscricao-container input {
+  padding: 15px 20px;
+  font-size: 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.modal-inscricao-container input:focus {
+  border-color: #b91c1c;
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+}
+
+.modal-inscricao-container input::placeholder {
+  color: #999;
+}
+
+.modal-inscricao-container button {
+  margin-top: 10px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-inscricao-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(185, 28, 28, 0.3);
+}
+
+@media (max-width: 768px) {
+  .modal-inscricao-container {
+    padding: 30px 25px;
+    max-width: 90%;
+  }
+
+  .modal-inscricao-container h3 {
+    font-size: 24px;
+  }
+
+  .modal-inscricao-container .atividade-nome {
+    font-size: 18px;
+  }
+}

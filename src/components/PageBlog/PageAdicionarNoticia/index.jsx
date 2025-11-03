@@ -3,6 +3,7 @@ import "../../../styles/Blog/adicionar-noticia/style.css";
 import IconUpload from "../../../assets/Blog/upload.svg";
 import { X, Check } from "lucide-react";
 import Button from "../../Button";
+import ImageCropModal from '../ImageCropModal';
 import { apiPost } from '../../../config/api';
 import { useToast } from '../../Toast/useToast';
 import ToastContainer from '../../Toast/ToastContainer';
@@ -12,6 +13,8 @@ const AdicionarNoticia = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
+  const [imageToCrop, setImageToCrop] = useState(null);
+  const [showCropModal, setShowCropModal] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -34,15 +37,35 @@ const AdicionarNoticia = () => {
         return;
       }
 
-      toast.success("Imagem carregada com sucesso!");
-      setImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
+      const imageUrl = URL.createObjectURL(file);
+      setImageToCrop(imageUrl);
+      setShowCropModal(true);
+    }
+  };
+
+  const handleCropComplete = (croppedImage) => {
+    setImagePreview(croppedImage);
+    setShowCropModal(false);
+    setImageToCrop(null);
+    toast.success("Imagem ajustada com sucesso!");
+  };
+
+  const handleCropCancel = () => {
+    setShowCropModal(false);
+    setImageToCrop(null);
+    const fileInput = document.getElementById('uploadImage');
+    if (fileInput) {
+      fileInput.value = '';
     }
   };
 
   const removeImage = () => {
     setImagePreview(null);
     setImageFile(null);
+    const fileInput = document.getElementById('uploadImage');
+    if (fileInput) {
+      fileInput.value = '';
+    }
   };
 
   const confirmImage = () => {
@@ -68,7 +91,7 @@ const AdicionarNoticia = () => {
       return;
     }
 
-    if (!imageFile) {
+    if (!imagePreview) {
       toast.warning("Por favor, selecione uma imagem para a notícia.");
       return;
     }
@@ -76,14 +99,17 @@ const AdicionarNoticia = () => {
     setLoading(true);
 
     try {
-      // Converter imagem para Base64
+      // Converter a imagem cropada (que já está em blob URL) para base64
+      const response = await fetch(imagePreview);
+      const blob = await response.blob();
+      
       const reader = new FileReader();
       
       reader.onloadend = async () => {
         try {
           const base64Image = reader.result;
 
-          const response = await apiPost('/blog/criar', {
+          const apiResponse = await apiPost('/blog/criar', {
             tituloMateria: formData.tituloMateria,
             informacao: formData.informacao,
             urlNoticia: base64Image,
@@ -91,18 +117,18 @@ const AdicionarNoticia = () => {
             anonima: false
           });
 
-          if (response.ok) {
+          if (apiResponse.ok) {
             toast.success("Notícia enviada com sucesso! Aguarde a aprovação de um administrador.");
 
             setTimeout(() => {
               navigate('/blog');
             }, 1500);
-          } else if (response.status === 401) {
+          } else if (apiResponse.status === 401) {
             toast.error("Você precisa estar logado para criar uma notícia.");
-          } else if (response.status === 403) {
+          } else if (apiResponse.status === 403) {
             toast.error("Você não tem permissão para enviar uma notícia.");
           } else {
-            const error = await response.json();
+            const error = await apiResponse.json();
             toast.error(error.message || "Erro ao enviar notícia.");
           }
         } catch (error) {
@@ -118,7 +144,7 @@ const AdicionarNoticia = () => {
         setLoading(false);
       };
 
-      reader.readAsDataURL(imageFile);
+      reader.readAsDataURL(blob);
     } catch (error) {
       console.error("Erro:", error);
       toast.error("Erro ao processar a imagem. Tente novamente.");
@@ -196,6 +222,14 @@ const AdicionarNoticia = () => {
 
         </div>
       </div>
+
+      {showCropModal && imageToCrop && (
+        <ImageCropModal
+          image={imageToCrop}
+          onClose={handleCropCancel}
+          onCropComplete={handleCropComplete}
+        />
+      )}
     </>
   );
 };
