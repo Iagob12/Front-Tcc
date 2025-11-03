@@ -17,3 +17,29 @@
     width: 60px;
     height: 80px;
 }
+
+@media (max-width: 768px) {
+    .cardAtiv-container {
+        padding: 28px 24px;
+    }
+    
+    .cardAtiv-container h3 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+    
+    .icon-card-atividade {
+        width: 50px;
+        height: 65px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cardAtiv-container {
+        padding: 24px 20px;
+    }
+    
+    .cardAtiv-container h3 {
+        font-size: 20px;
+    }
+}

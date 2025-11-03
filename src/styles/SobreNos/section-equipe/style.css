@@ -6,7 +6,65 @@
     font-size: 1.5rem;
     align-items: center;
     gap: 134px;
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
 }
+
 .container-equipe p {
     width: 460px;
+    max-width: 460px;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.container-equipe img {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* ========================================
+   RESPONSIVIDADE EQUIPE
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .container-equipe {
+        padding: 50px var(--container-padding, 20px);
+        gap: 50px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container-equipe {
+        flex-direction: column;
+        gap: 32px;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .container-equipe p {
+        width: 100%;
+        font-size: 1.2rem;
+    }
+
+    .container-equipe img {
+        max-width: 100%;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .container-equipe {
+        padding: 32px 16px;
+    }
+
+    .container-equipe p {
+        font-size: 1.1rem;
+    }
 }

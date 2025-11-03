@@ -1,5 +1,6 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
 import Cadastro from "./pages/Cadastro";
@@ -16,9 +17,25 @@ import OAuth2Callback from "./pages/OAuth2Callback";
 import PageSistemaAprovacao from "./pages/SistemaAprovacao";
 import PageRelatorios from "./pages/PageRelatorios"
 
+// Componente para scroll to top ao navegar
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+  }, [pathname]);
+
+  return null;
+}
+
 const App = () => {
   return (
     <>
+      <ScrollToTop />
       <Routes>
         
         <Route path="/" element={<Home />} />

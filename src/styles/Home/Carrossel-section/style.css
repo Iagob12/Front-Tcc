@@ -36,3 +36,43 @@ span.swiper-pagination-bullet-active {
     text-align: center;
     z-index: 10;
 }
+
+@media (max-width: 768px) {
+    .carrossel-section {
+        padding-bottom: 16px;
+    }
+    
+    .carrossel-container {
+        padding: 20px 20px 16px 20px;
+    }
+    
+    .carrossel-content {
+        margin-top: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .carrossel-container button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carrossel-section {
+        padding-bottom: 12px;
+    }
+    
+    .carrossel-container {
+        padding: 16px 16px 12px 16px;
+    }
+    
+    .carrossel-content {
+        margin-top: 12px;
+        margin-bottom: 8px;
+    }
+    
+    .carrossel-container button {
+        max-width: 250px;
+        font-size: 14px;
+    }
+}

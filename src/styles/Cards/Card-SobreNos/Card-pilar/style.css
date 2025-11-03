@@ -12,3 +12,82 @@
     transform: translateY(-10px);
 }
 
+.card-pilar h1 {
+    font-size: 2rem;
+    margin: 10px 0;
+}
+
+.card-pilar p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-grey-dark);
+}
+
+.card-pilar img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+}
+
+/* ========================================
+   RESPONSIVIDADE CARD PILAR
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .card-pilar {
+        width: 45%;
+    }
+    
+    .card-pilar h1 {
+        font-size: 1.8rem;
+    }
+    
+    .card-pilar p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .card-pilar {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .card-pilar h1 {
+        font-size: 1.6rem;
+        margin: 8px 0;
+    }
+    
+    .card-pilar p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        text-align: justify;
+        text-align-last: center;
+        max-width: 350px;
+    }
+    
+    .card-pilar img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .card-pilar h1 {
+        font-size: 1.4rem;
+    }
+    
+    .card-pilar p {
+        font-size: 0.9rem;
+        max-width: 300px;
+    }
+    
+    .card-pilar img {
+        width: 90px;
+        height: 90px;
+    }
+}
+

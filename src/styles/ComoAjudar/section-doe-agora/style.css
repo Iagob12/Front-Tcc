@@ -28,3 +28,33 @@
     text-align: start;
     padding-bottom: 70px;
 }
+
+@media (max-width: 768px) {
+    .section-doe {
+        padding: 40px 20px;
+    }
+
+    .container-doe {
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .texto-doe {
+        width: 100%;
+        text-align: center;
+    }
+
+    .texto-doe p {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-doe {
+        padding: 32px 16px;
+    }
+
+    .texto-doe p {
+        font-size: 1.2rem;
+    }
+}

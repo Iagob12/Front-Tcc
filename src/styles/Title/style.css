@@ -1,16 +1,37 @@
 h2{
     padding-top: 54px;
-    color: var(--color-grey );
+    color: var(--color-grey);
     font-size: 48px;
     font-weight: 800;
     text-align: center;
-    margin-bottom: 32px ;
+    margin-bottom: 32px;
 }
 
 .linha{
     background-color: var(--color-secondary);
     width: 318.01px;
     height: 2px;
-    margin:0 auto;  
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 36px;
+        padding-top: 40px;
+    }
     
+    .linha {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 28px;
+        padding-top: 32px;
+    }
+    
+    .linha {
+        width: 200px;
+    }
 }

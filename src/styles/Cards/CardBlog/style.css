@@ -77,3 +77,46 @@
     color: var(--color-secondary);
     text-decoration: underline;
 }
+
+/* ========================================
+   RESPONSIVIDADE CARD BLOG
+   ======================================== */
+
+/* Mobile */
+@media (max-width: 768px) {
+    .card-blog {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .card-blog img {
+        width: 100%;
+    }
+
+    .card-blog .noticia {
+        width: 100%;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .card-blog img {
+        height: 160px;
+    }
+
+    .card-blog-info {
+        padding: 14px 20px;
+    }
+
+    .card-blog h4 {
+        font-size: 14px;
+    }
+
+    .card-blog .noticia {
+        font-size: 12px;
+    }
+
+    .btn-blog {
+        font-size: 12px;
+    }
+}

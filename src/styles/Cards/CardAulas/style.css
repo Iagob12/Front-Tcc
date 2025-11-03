@@ -20,3 +20,30 @@
     font-size: 1.125rem;
     justify-content: center;
 }
+
+@media (max-width: 768px) {
+    .card-aula {
+        width: 100%;
+    }
+    
+    .info-aula {
+        flex-direction: column;
+        padding: 16px;
+    }
+    
+    .local-data, .lembrete-cancelar {
+        font-size: 1rem;
+        gap: 12px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-aula {
+        padding: 12px;
+    }
+    
+    .local-data, .lembrete-cancelar {
+        font-size: 0.9rem;
+    }
+}

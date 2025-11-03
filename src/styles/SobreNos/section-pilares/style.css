@@ -6,10 +6,56 @@
     padding: 70px 122px;
     gap: 50px;
     margin-top: 20px;
+    max-width: var(--container-max-width, 1200px);
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 
- hr{
+hr{
     height: 2px;
     background: var(--color-grey-dark);
     margin: 30px;
+    border: none;
+}
+
+/* ========================================
+   RESPONSIVIDADE PILARES
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .section-pilares {
+        padding: 50px var(--container-padding, 20px);
+        gap: 32px;
+    }
+
+    hr {
+        margin: 24px 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .section-pilares {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 32px;
+    }
+
+    hr {
+        margin: 24px 20px;
+        width: 90%;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .section-pilares {
+        padding: 32px 16px;
+        gap: 24px;
+    }
+
+    hr {
+        margin: 20px 16px;
+    }
 }

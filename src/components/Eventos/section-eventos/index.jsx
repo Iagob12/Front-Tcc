@@ -36,19 +36,13 @@ export default function SectionEventos() {
     fetchEventos();
   }, []);
 
-  if (loading) {
-    return <p>Carregando eventos...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
   return (
     <section className="section-eventos">
       <Title title={"Eventos"} />
       {eventos.length === 0 ? (
-        <p>Não há eventos para exibir.</p>
+        <p style={{ textAlign: 'center', padding: '20px', color: 'var(--color-grey)', fontSize: '1rem' }}>
+          Não há eventos para exibir.
+        </p>
       ) : (
         eventos.map((evento) => (
           <CardEventos

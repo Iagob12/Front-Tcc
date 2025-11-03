@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     padding: 68px 102px;
-    display: flex;
     justify-content: center;
 }
 
@@ -12,13 +11,79 @@
     align-items: center;
     gap: 140px;
     margin-top: 20px;
+    max-width: var(--container-max-width, 1200px);
+    width: 100%;
 }
 
 .historia-content p{
     font-size: 28px;
     width: 510px;
+    line-height: 1.6;
+    flex: 1;
+}
+
+.historia-content img {
+    flex: 1;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
 }
 
 .historia-content span{
     color: var(--color-secondary);
+    font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVIDADE HISTÓRIA
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .section-historia {
+        padding: 50px var(--container-padding, 20px);
+    }
+
+    .historia-content {
+        gap: 50px;
+    }
+
+    .historia-content p {
+        font-size: 24px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .section-historia {
+        padding: 40px 20px;
+    }
+
+    .historia-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .historia-content p {
+        width: 100%;
+        font-size: 24px;
+    }
+
+    .historia-content img {
+        max-width: 100%;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .section-historia {
+        padding: 32px 16px;
+    }
+
+    .historia-content p {
+        font-size: 20px;
+    }
 }

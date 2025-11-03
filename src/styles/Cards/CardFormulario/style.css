@@ -1,5 +1,4 @@
 .background-card{
-    
     background: var(--color-grey-light);
     width: 80%;
     display: flex;
@@ -11,7 +10,6 @@
     display: flex;
     flex-direction: column;
     width: 600px;
-    
     align-items: center;
     padding: 69px 90px;
     background: var(--color-white);
@@ -35,12 +33,21 @@
 .input input{
     border: 1px solid var(--color-grey-light);
     border-radius: 20px;
-    padding: 10px;
+    padding: 12px 16px;
     outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input input:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(178, 0, 0, 0.1);
 }
 
 .input label{
     color: var(--color-grey);
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .card-formulario h1{
@@ -51,7 +58,6 @@
 .opcoes-login{
     text-align: center;
     gap: 20px;
-    
 }
 
 .opcoes-login button{
@@ -61,11 +67,11 @@
     background: none;
 }
 
-
 .criar-conta {
     margin-top: 14px;
-    
+    font-size: 15px;
 }
+
 .criar-conta:hover{
     cursor: pointer;
     font-weight: 700;
@@ -80,6 +86,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 16px;
+    gap: 12px;
 }
 
 /* Opções extras de login */
@@ -88,7 +96,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    margin: 1rem 0;
+    margin: 1.25rem 0;
     padding: 0.75rem 0;
     border-top: 1px solid var(--color-grey-light);
     border-bottom: 1px solid var(--color-grey-light);
@@ -114,4 +122,99 @@
 .login-extras .separator {
     color: var(--color-grey);
     font-weight: 300;
+}
+
+@media (max-width: 768px) {
+    .background-card {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        min-height: 100vh;
+        padding: 90px 20px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+    }
+
+    .card-formulario {
+        width: 100%;
+        max-width: 480px;
+        padding: 36px 32px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card-formulario h1 {
+        font-size: 2.2rem;
+        margin-bottom: 8px;
+    }
+
+    .inputs {
+        padding: 28px 0;
+        gap: 18px;
+    }
+    
+    .input label {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    
+    .input input {
+        padding: 14px 18px;
+        font-size: 16px;
+        border-width: 2px;
+    }
+
+    .login-extras {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: 1.25rem 0;
+    }
+
+    .login-extras .separator {
+        display: none;
+    }
+    
+    .opcoes-login {
+        margin-top: 8px;
+    }
+    
+    .criar-conta {
+        font-size: 15px;
+        margin-top: 16px;
+    }
+    
+    .social-buttons {
+        margin-top: 16px;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .background-card {
+        padding: 80px 16px 32px;
+    }
+
+    .card-formulario {
+        max-width: 100%;
+        padding: 32px 24px;
+    }
+
+    .card-formulario h1 {
+        font-size: 1.9rem;
+    }
+
+    .inputs {
+        padding: 24px 0;
+        gap: 16px;
+    }
+    
+    .input input {
+        padding: 13px 16px;
+    }
+    
+    .criar-conta {
+        font-size: 14px;
+    }
 }
