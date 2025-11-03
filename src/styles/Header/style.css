@@ -232,6 +232,12 @@ a.drop-item:hover{
 /* Seção de Acesso */
 .perfil-section {
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.perfil-section button{
+    background: none;
 }
 
 .perfil-section-title {

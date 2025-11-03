@@ -1,18 +1,18 @@
 .cardEventos-container{
     display: flex;
-    width: 951px;
+    width: 950px;
     background-color: var(--color-white);
     border-radius: 20px;
     transition: 0.5s ;
 }
 
-.cardeEventos-info{
+.cardEventos-info{
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
     justify-content: center;
-
+    margin: 0px 50px;
 }
 
 .cardEventos-info h2{
@@ -42,4 +42,8 @@
 .cardEventos-container:hover{
    transform: translateY(-10px);
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn{
+    align-self: center;
 }

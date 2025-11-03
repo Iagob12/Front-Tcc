@@ -1,0 +1,42 @@
+.voluntario-preview {
+    display: flex;
+    padding: 30px;
+    gap: 20px;
+    align-items: center;
+    font-weight: bold;
+    transition: .5s;
+}
+
+.voluntario-preview:hover{
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.voluntario-preview img{
+    min-width: 120px;
+    max-width: 120px;
+    border-radius: 80px;
+}
+
+.dados-voluntario {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.nome-voluntario{
+    font-size: 1.25rem;
+    min-width: 100px;
+}
+
+.descricao-voluntario{
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;      
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    max-width: 100%;
+    word-break: break-word;  
+}
