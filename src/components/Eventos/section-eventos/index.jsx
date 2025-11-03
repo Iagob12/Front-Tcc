@@ -12,37 +12,19 @@ export default function SectionEventos() {
 
   // Estado para armazenar os eventos
   const [eventos, setEventos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // Função para buscar os eventos
   const fetchEventos = async () => {
-    try {
       const response = await apiGet("/evento/listar")
       if (response.ok) {
         const data = await response.json();
         setEventos(data);
-      } else {
-        setError("Erro ao carregar eventos.");
       }
-    } catch (error) {
-      setError("Erro ao conectar ao servidor.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   useEffect(() => {
     fetchEventos();
   }, []);
-
-  if (loading) {
-    return <p>Carregando eventos...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
 
   return (
     <section className="section-eventos">
@@ -59,13 +41,6 @@ export default function SectionEventos() {
             data={evento.data}
           />
         ))
-      )}
-
-      {/* Link para adicionar evento, visível apenas para ADMIN */}
-      {isAdmin && (
-        <Link to="/adicionar-evento" id="btn-evento" className="link-adicionar">
-          + Adicionar evento
-        </Link>
       )}
     </section>
   );

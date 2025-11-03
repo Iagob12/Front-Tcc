@@ -15,6 +15,7 @@ import AdicionarAtividade from "./pages/AdicionarAtividade";
 import OAuth2Callback from "./pages/OAuth2Callback";
 import PageSistemaAprovacao from "./pages/SistemaAprovacao";
 import PageRelatorios from "./pages/PageRelatorios"
+import BlogDetails from "./components/SistemaAprovacao/BlogDetails";
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/adicionar-atividade" element={ <AdicionarAtividade /> } />
         
         <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao/>} />
+        <Route path="/detalhes-blog" element={<BlogDetails/>} />
         
         <Route path="/gerenciar-relatorios" element={<PageRelatorios/>} />
       </Routes>
