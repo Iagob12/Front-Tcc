@@ -5,8 +5,10 @@ import Button from "../Button";
 import { Link, useNavigate } from 'react-router-dom';
 import { apiGet, apiPost } from '../../config/api';
 import { User, X } from 'lucide-react';
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
+  const { isAdmin } = useAuth();
   const [aberto, setAberto] = useState(false);
 
   // Inicializa o estado de login com cache do localStorage para evitar "piscar"
@@ -202,15 +204,19 @@ const Header = () => {
                     <button className="perfil-menu-item" onClick={handleEditarPerfil}>
                       Editar perfil
                     </button>
-                    <button className="perfil-menu-item">
-                      <Link className="perfil-menu-item" to="/gerenciar-relatorios">
-                        Acessar relatórios
-                      </Link>
+                    <button >
+                      {isAdmin && (
+                        <Link className="perfil-menu-item" to="/gerenciar-relatorios">
+                          Acessar relatórios
+                        </Link>
+                      )}
                     </button>
-                    <button>
-                      <Link className="perfil-menu-item" to="/sistema-aprovacao">
-                        Sistema de aprovacao
-                      </Link>
+                    <button >
+                      {isAdmin && (
+                        <Link className="perfil-menu-item" to="/sistema-aprovacao">
+                          Sistema de aprovacao
+                        </Link>
+                      )}
                     </button>
                     <button className="perfil-menu-item">
                       Escalas

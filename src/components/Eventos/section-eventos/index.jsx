@@ -1,37 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../../Title";
 import CardEventos from "../../Cards/CardEventos";
 import "../../../styles/Eventos/section-eventos/style.css";
-import natal from "../../../assets/Eventos/evento-natal.svg";
-import pascoa from "../../../assets/Eventos/evento-pascoa.png";
-import arrecadacao from "../../../assets/Eventos/evento-arrecadacao.svg";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth"; // Importando o hook para verificar a role ADMIN
+import { useAuth } from "../../../hooks/useAuth";
+import { apiGet } from "../../../config/api";
+import imgdefault from "../../../assets/teste/imgdefaultevent.png"
 
 export default function SectionEventos() {
-  const { isAdmin } = useAuth(); // Verificando se o usuário é ADMIN
+  const { isAdmin } = useAuth();
+
+  // Estado para armazenar os eventos
+  const [eventos, setEventos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Função para buscar os eventos
+  const fetchEventos = async () => {
+    try {
+      const response = await apiGet("/evento/listar")
+      if (response.ok) {
+        const data = await response.json();
+        setEventos(data);
+      } else {
+        setError("Erro ao carregar eventos.");
+      }
+    } catch (error) {
+      setError("Erro ao conectar ao servidor.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEventos();
+  }, []);
+
+  if (loading) {
+    return <p>Carregando eventos...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <section className="section-eventos">
       <Title title={"Eventos"} />
-      <CardEventos
-        img={natal}
-        titulo={"Evento de Natal"}
-        local={"São Mateus, Zona Leste, SP"}
-        data={"20/12/2025"}
-      />
-      <CardEventos
-        img={pascoa}
-        titulo={"Evento de Páscoa"}
-        local={"São Mateus, Zona Leste, SP"}
-        data={"10/02/2025"}
-      />
-      <CardEventos
-        img={arrecadacao}
-        titulo={"Evento de Arrecadação"}
-        local={"São Mateus, Zona Leste, SP"}
-        data={"19/08/2025"}
-      />
+      {eventos.length === 0 ? (
+        <p>Não há eventos para exibir.</p>
+      ) : (
+        eventos.map((evento) => (
+          <CardEventos
+            key={evento.id}
+            titulo={evento.nome}
+            img={imgdefault}
+            local={evento.local}
+            data={evento.data}
+          />
+        ))
+      )}
 
       {/* Link para adicionar evento, visível apenas para ADMIN */}
       {isAdmin && (
