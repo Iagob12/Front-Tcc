@@ -36,6 +36,18 @@
     flex-direction: column;
 }
 
+.informacao-conteudo{
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;      
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    max-width: 100%;
+    word-break: break-word;  
+}
+
 .blog-titulo-span{
     margin: 10px 0px;
     font-size: 1.25rem;

@@ -15,11 +15,11 @@ export default function SectionEventos() {
 
   // Função para buscar os eventos
   const fetchEventos = async () => {
-      const response = await apiGet("/evento/listar")
-      if (response.ok) {
-        const data = await response.json();
-        setEventos(data);
-      }
+    const response = await apiGet("/evento/listar")
+    if (response.ok) {
+      const data = await response.json();
+      setEventos(data);
+    }
   };
 
   useEffect(() => {
@@ -41,6 +41,11 @@ export default function SectionEventos() {
             data={evento.data}
           />
         ))
+      )}
+      {isAdmin && (
+        <Link to="/adicionar-evento" className="link-adicionar">
+          + Adicionar evento
+        </Link>
       )}
     </section>
   );

@@ -11,7 +11,7 @@ const CardBlog = ({ img, titulo, data, nomeUsuario, conteudo }) => {
                         <p><span className="blog-data-span">{data}</span></p>
                     </div>
                     <p className="blog-titulo-span"><span>{titulo}</span></p>
-                    <p>{conteudo}</p>
+                    <p className="informacao-conteudo">{conteudo}</p>
                 </div>
             </div>
         </>

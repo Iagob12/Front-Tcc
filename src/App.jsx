@@ -1,12 +1,13 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
 import Cadastro from "./pages/Cadastro";
 import ComoAjudar from "./pages/ComoAjudar";
 import Login from "./pages/Login";
-import Tarefas from './pages/Tarefas';
+import Tarefas from "./pages/Tarefas";
 import TornarVoluntario from "./pages/TornarVoluntario";
+import SerVoluntario from "./components/SerVoluntario"
 import SobreNos from "./pages/SobreNos";
 import Blog from "./pages/Blog";
 import AdicionarNoticia from "./pages/AdicionarNoticia";
@@ -14,38 +15,36 @@ import AdicionarEvento from "./pages/AdicionarEvento";
 import AdicionarAtividade from "./pages/AdicionarAtividade";
 import OAuth2Callback from "./pages/OAuth2Callback";
 import PageSistemaAprovacao from "./pages/SistemaAprovacao";
-import PageRelatorios from "./pages/PageRelatorios"
+import PageRelatorios from "./pages/PageRelatorios";
 import BlogDetails from "./components/SistemaAprovacao/BlogDetails";
 
-const App = () => {
-  return (
-    <>
-      <Routes>
-        
-        <Route path="/" element={<Home />} />
-        <Route path="/oauth2/callback" element={<OAuth2Callback />} />
+const App = () => (
+  <Routes>
+    {/* Rotas públicas */}
+    <Route path="/" element={<Home />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/cadastrar-se" element={<Cadastro />} />
+    <Route path="/oauth2/callback" element={<OAuth2Callback />} />
+    <Route path="/sobre" element={<SobreNos />} />
+    <Route path="/eventos" element={<Eventos />} />
+    <Route path="/como-ajudar" element={<ComoAjudar />} />
+    <Route path="/tarefas" element={<Tarefas />} />
+    <Route path="/quero-ser-voluntario" element={<TornarVoluntario />} />
 
-        <Route path="/eventos" element={<Eventos />} />
-        <Route path="/cadastrar-se" element={<Cadastro />} />
-        <Route path="/como-ajudar" element={<ComoAjudar />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/sobre" element={<SobreNos />} />
-        <Route path="/tarefas" element={<Tarefas />} />
-        <Route path="/voluntario" element={<TornarVoluntario />} />
-        <Route path="/quero-ser-voluntario" element={<TornarVoluntario />} />
-        <Route path="/blog" element={<Blog />} />
+    {/* Blog */}
+    <Route path="/blog" element={<Blog />} />
+    <Route path="/blog/:id" element={<BlogDetails />} />
 
-        <Route path="/adicionar-noticia" element={ <AdicionarNoticia /> } />
-        <Route path="/adicionar-evento" element={ <AdicionarEvento /> } />
-        <Route path="/adicionar-atividade" element={ <AdicionarAtividade /> } />
-        
-        <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao/>} />
-        <Route path="/detalhes-blog" element={<BlogDetails/>} />
-        
-        <Route path="/gerenciar-relatorios" element={<PageRelatorios/>} />
-      </Routes>
-    </>
-  );
-};
+    <Route path="/adicionar-noticia" element={<AdicionarNoticia />} />
+    <Route path="/adicionar-evento" element={<AdicionarEvento />} />
+    <Route path="/adicionar-atividade" element={<AdicionarAtividade />} />
+    <Route path="/ser-voluntario" element={<SerVoluntario />} />
+
+    {/* Sistema de aprovação */}
+    <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao />} />
+    <Route path="/sistema-aprovacao/detalhes-blog/:id" element={<BlogDetails />} />
+    <Route path="/gerenciar-relatorios" element={<PageRelatorios />} />
+  </Routes>
+);
 
 export default App;

@@ -52,12 +52,13 @@
 
 .content-detalhes-blog p{
     font-weight: 500;
+    margin-bottom: 50px;
 }
 
 .opcoes-aprovar{
     display: flex;
     gap: 50px;
-    margin: 30px;
+    margin-bottom: 30px;
 }
 
 .opcoes-aprovar button{
