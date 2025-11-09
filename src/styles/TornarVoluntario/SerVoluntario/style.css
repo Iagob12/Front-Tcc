@@ -1,0 +1,47 @@
+.container-ser-voluntario{
+    background: var(--color-grey-light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.content-ser-voluntario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    border-radius: 15px;
+    background: var(--color-white);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+    margin: 50px;
+    padding: 50px;
+}
+
+.form-ser-voluntario {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 30px;
+}
+
+.form-ser-voluntario label{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-grey);
+}
+
+.form-ser-voluntario input, 
+.form-ser-voluntario textarea{
+    box-shadow: 1px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    padding: 10px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.form-ser-voluntario textarea {
+    min-height: 100px;
+    resize: none;
+}
