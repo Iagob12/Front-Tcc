@@ -28,9 +28,11 @@
 
 .cards-doacao {
     display: flex;
-    gap: 23px;
+    gap: 24px;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    flex: 1;
 }
 
 .mensal {
@@ -39,12 +41,15 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    transition: 0.4s ease-in-out;
-    box-shadow: 4px 7px 8px 0px rgba(0, 0, 0, 0.22);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    flex: 1;
+    min-width: 280px;
 }
 
 .mensal:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .mensal p {
@@ -58,16 +63,16 @@
     font-size: 32px;
     font-weight: 800;
     color: var(--color-secondary);
-    width: 294px;
-    margin-bottom: 23.5px;
+    max-width: 294px;
+    margin-bottom: 24px;
 }
 
 .mensal button {
     border-radius: 15px;
     font-size: 20px;
-    padding: 13.5px 95px;
+    padding: 14px 40px;
     margin-bottom: 39px;
-
+    width: 100%;
 }
 
 .doe-agora {
@@ -76,12 +81,15 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    box-shadow: 4px 7px 8px 0px rgba(0, 0, 0, 0.22);
-    transition: 0.4s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1;
+    min-width: 280px;
 }
 
 .doe-agora:hover {
     transform: translateY(-10px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .doe-agora p {
@@ -94,7 +102,7 @@
 .doe-agora h5 {
     font-size: 32px;
     font-weight: 800;
-    width: 274px;
+    max-width: 274px;
     margin-bottom: 48px;
 }
 
@@ -103,14 +111,126 @@
     font-size: 20px;
     font-weight: 700;
     background-color: var(--color-grey);
-    padding: 11.5px 95px;
+    padding: 12px 40px;
     margin-bottom: 24px;
     color: var(--color-white);
+    width: 100%;
+    transition: all 0.3s ease;
 }
 
 .doe-agora button:hover {
-    background: none;
+    background: transparent;
     color: var(--color-grey);
     border: 1px solid var(--color-grey);
     cursor: pointer;
+}
+
+/* ========================================
+   RESPONSIVIDADE PLANOS
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .section-planos {
+        padding: 50px var(--container-padding, 20px);
+    }
+
+    .section-planos h2 {
+        font-size: 36px;
+    }
+
+    .planos-container {
+        gap: 32px;
+    }
+
+    .planos-container h3 {
+        font-size: 24px;
+    }
+
+    .mensal h4,
+    .doe-agora h5 {
+        font-size: 28px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .section-planos {
+        padding: 40px 20px;
+    }
+
+    .section-planos h2 {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    .planos-container {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .planos-container h3 {
+        font-size: 22px;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .cards-doacao {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .mensal,
+    .doe-agora {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .mensal h4,
+    .doe-agora h5 {
+        font-size: 24px;
+        max-width: 100%;
+    }
+
+    .mensal p,
+    .doe-agora p {
+        font-size: 18px;
+    }
+
+    .mensal button,
+    .doe-agora button {
+        font-size: 18px;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .section-planos {
+        padding: 32px 16px;
+    }
+
+    .section-planos h2 {
+        font-size: 24px;
+    }
+
+    .planos-container h3 {
+        font-size: 20px;
+    }
+
+    .mensal h4,
+    .doe-agora h5 {
+        font-size: 22px;
+    }
+
+    .mensal p,
+    .doe-agora p {
+        font-size: 16px;
+        margin-bottom: 32px;
+    }
+
+    .mensal button,
+    .doe-agora button {
+        font-size: 16px;
+        padding: 12px 32px;
+    }
 }

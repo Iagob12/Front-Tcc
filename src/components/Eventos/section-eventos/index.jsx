@@ -30,7 +30,9 @@ export default function SectionEventos() {
     <section className="section-eventos">
       <Title title={"Eventos"} />
       {eventos.length === 0 ? (
-        <p>Não há eventos para exibir.</p>
+        <p style={{ textAlign: 'center', padding: '20px', color: 'var(--color-grey)', fontSize: '1rem' }}>
+          Não há eventos para exibir.
+        </p>
       ) : (
         eventos.map((evento) => (
           <CardEventos

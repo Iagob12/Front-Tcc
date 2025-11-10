@@ -24,12 +24,17 @@ const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onIns
     }
 
     function handleTouchMove(event) {
+      // Ignora movimento dentro do modal para permitir cliques
+      if (modalRef.current && modalRef.current.contains(event.target)) {
+        return;
+      }
+      
       if (!hasMoved) {
         const deltaX = Math.abs(event.touches[0].clientX - startX);
         const deltaY = Math.abs(event.touches[0].clientY - startY);
         
-        // Se moveu mais de 3px, fecha o modal (bem sensível)
-        if (deltaX > 3 || deltaY > 3) {
+        // Aumenta toleração para 30px para permitir pequenos movimentos ao clicar
+        if (deltaX > 30 || deltaY > 30) {
           hasMoved = true;
           onClose();
         }
@@ -109,13 +114,18 @@ const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onIns
 
   if (!isOpen || !position) return null;
 
-  // Estilo inline para posicionar o modal EXATAMENTE sobre o card clicado
+  // Mantém posição e tamanho originais do card, mas permite altura dinâmica
+  const isMobile = window.innerWidth <= 768;
+  
   const modalStyle = {
     position: "fixed",
     top: `${position.top}px`,
     left: `${position.left}px`,
     width: `${position.width}px`,
-    height: `${position.height}px`,
+    minHeight: `${position.height}px`,
+    height: "auto",
+    maxHeight: "80vh",
+    zIndex: 1501,
   };
 
   return (
@@ -123,7 +133,7 @@ const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onIns
       ref={modalRef} 
       className="modal-atividade-container-positioned"
       style={modalStyle}
-      onMouseLeave={onClose}
+      onMouseLeave={!isMobile ? onClose : undefined}
     >
       <h3>{aula}</h3>
       <p className="modal-atividade-data">{data}</p>

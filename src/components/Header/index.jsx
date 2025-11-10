@@ -2,14 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import "../../styles/Header/style.css";
 import Logo from "../../assets/Logos/Logo.svg";
 import Button from "../Button";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { apiGet, apiPost } from '../../config/api';
-import { User, X } from 'lucide-react';
+import { User, X, Menu } from 'lucide-react';
 import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
   const { isAdmin } = useAuth();
   const [aberto, setAberto] = useState(false);
+  const [mobileMenuAberto, setMobileMenuAberto] = useState(false);
 
   // Inicializa o estado de login com cache do localStorage para evitar "piscar"
   const [logado, setLogado] = useState(() => {
@@ -28,6 +29,7 @@ const Header = () => {
 
   const perfilRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   console.log("🎨 Header renderizado - Estado logado:", logado, "Carregando:", carregando);
 
@@ -130,37 +132,99 @@ const Header = () => {
 
   return (
     <>
+      {/* Overlay do menu mobile */}
+      <div 
+        className={`mobile-menu-overlay ${mobileMenuAberto ? 'active' : ''}`}
+        onClick={() => setMobileMenuAberto(false)}
+      ></div>
+      
       <header>
         <Link to="/">
           <img src={Logo} alt="Logo dos Voluntarios Pro Bem, três bonequinhos, preto cinza e vermelho" className="logo" />
         </Link>
 
-        <nav className="nav-header">
+        {/* Menu Hamburger - Mobile */}
+        <button 
+          className={`mobile-menu-btn ${mobileMenuAberto ? 'active' : ''}`}
+          onClick={() => setMobileMenuAberto(!mobileMenuAberto)}
+          aria-label="Menu"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
+
+        {/* Navegação Desktop */}
+        <nav className={`nav-header ${mobileMenuAberto ? 'mobile-open' : ''}`}>
           <ul className="lista-header">
-            <li><Link to="/eventos">Eventos</Link></li>
+            <li className={location.pathname === '/eventos' ? 'active' : ''}>
+              <Link to="/eventos" onClick={() => setMobileMenuAberto(false)}>Eventos</Link>
+            </li>
 
             <li
-              className="menu-item-com-dropdown"
+              className={`menu-item-com-dropdown ${location.pathname === '/sobre' ? 'active' : ''}`}
               onMouseEnter={() => setAberto(true)}
               onMouseLeave={() => setAberto(false)}
             >
-              <Link to="/sobre">Sobre Nós ▾</Link>
+              <div className="sobre-nos-header">
+                <Link to="/sobre" onClick={() => setMobileMenuAberto(false)}>Sobre Nós</Link>
+                <button 
+                  className="dropdown-toggle"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setAberto(!aberto);
+                  }}
+                  aria-label="Expandir menu"
+                >
+                  ▾
+                </button>
+              </div>
 
               <div className={`sobre-dropdown ${aberto ? "ativo" : "inativo"}`}>
                 <ul className="lista-dropdown">
-                  <li><Link to="/sobre#nossa_historia" className="drop-item" onClick={() => setAberto(false)}>Nossa História</Link></li>
-                  <li><Link to="/sobre#linha-do-tempo" className="drop-item" onClick={() => setAberto(false)}>Linha do Tempo</Link></li>
-                  <li><Link to="/sobre#equipe" className="drop-item" onClick={() => setAberto(false)}>Equipe</Link></li>
-                  <li><Link to="/sobre#projetos" className="drop-item" onClick={() => setAberto(false)}>Projetos</Link></li>
+                  <li><Link to="/sobre#nossa_historia" className="drop-item" onClick={() => { setAberto(false); setMobileMenuAberto(false); }}>Nossa História</Link></li>
+                  <li><Link to="/sobre#linha-do-tempo" className="drop-item" onClick={() => { setAberto(false); setMobileMenuAberto(false); }}>Linha do Tempo</Link></li>
+                  <li><Link to="/sobre#equipe" className="drop-item" onClick={() => { setAberto(false); setMobileMenuAberto(false); }}>Equipe</Link></li>
+                  <li><Link to="/sobre#projetos" className="drop-item" onClick={() => { setAberto(false); setMobileMenuAberto(false); }}>Projetos</Link></li>
                 </ul>
               </div>
             </li>
-            <li><Link to="/blog">Blog</Link></li>
-            <li><Link to="/como-ajudar">Como Ajudar</Link></li>
+            <li className={location.pathname === '/blog' ? 'active' : ''}>
+              <Link to="/blog" onClick={() => setMobileMenuAberto(false)}>Blog</Link>
+            </li>
+            <li className={location.pathname === '/como-ajudar' ? 'active' : ''}>
+              <Link to="/como-ajudar" onClick={() => setMobileMenuAberto(false)}>Como Ajudar</Link>
+            </li>
           </ul>
+
+          {/* Botões no menu mobile */}
+          <div className="mobile-menu-buttons">
+            <Link to="/como-ajudar" onClick={() => setMobileMenuAberto(false)}>
+              <Button text="Doe Agora" primary={true} />
+            </Link>
+            
+            {logado ? (
+              <button 
+                className="profile-icon-btn" 
+                onClick={() => {
+                  setPerfilAberto(!perfilAberto);
+                  setMobileMenuAberto(false);
+                }}
+                aria-label="Abrir perfil"
+              >
+                <User size={24} strokeWidth={2} />
+              </button>
+            ) : (
+              <Link to="/cadastrar-se" onClick={() => setMobileMenuAberto(false)}>
+                <Button text="Cadastrar-se →" primary={false} />
+              </Link>
+            )}
+          </div>
         </nav>
 
-        <div className="header-buttons">
+        {/* Botões Desktop */}
+        <div className="header-buttons hide-desktop">
           <Link to="/como-ajudar">
             <Button text="Doe Agora" primary={true} />
           </Link>
@@ -168,8 +232,8 @@ const Header = () => {
           <div style={{ minWidth: '150px', position: 'relative' }} ref={perfilRef}>
             {logado ? (
               <>
-                <button
-                  className="profile-icon-btn"
+                <button 
+                  className="profile-icon-btn" 
                   onClick={() => setPerfilAberto(!perfilAberto)}
                   aria-label="Abrir perfil"
                 >

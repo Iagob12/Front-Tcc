@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 100px;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .atividades h1 {
@@ -23,10 +25,29 @@
 .atividades-container {
     display: flex;
     align-self: center;
-    margin: 50px;
-    width: 70%;
+    margin: 50px auto;
+    width: 85%;
+    max-width: 1200px;
     gap: 50px;
-    height: 338px;
+    min-height: 338px;
+    overflow: visible;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* Paginação */
+.atividades-container .swiper-pagination {
+    bottom: 10px !important;
+}
+
+.atividades-container .swiper-pagination-bullet {
+    background: var(--color-secondary);
+    opacity: 0.5;
+}
+
+.atividades-container .swiper-pagination-bullet-active {
+    opacity: 1;
+    background: var(--color-secondary);
 }
 
 .card {
@@ -34,4 +55,59 @@
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   RESPONSIVIDADE ATIVIDADES
+   ======================================== */
+
+/* Mobile */
+@media (max-width: 768px) {
+    .atividades {
+        padding: 40px 0 60px;
+        overflow: hidden;
+    }
+    
+    .atividades h1 {
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+    
+    .linha {
+        margin: 0 auto;
+    }
+    
+    .atividades-container {
+        flex-direction: column;
+        width: 100%;
+        margin: 30px 0;
+        min-height: auto;
+        gap: 24px;
+        padding: 0 20px 60px;
+    }
+    
+    .card {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .atividades {
+        padding: 32px 16px 50px;
+    }
+    
+    .atividades h1 {
+        font-size: 1.8rem;
+    }
+    
+    .linha {
+        width: 200px;
+    }
+    
+    .atividades-container {
+        width: 90%;
+        margin: 20px auto;
+    }
 }

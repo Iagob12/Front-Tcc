@@ -9,7 +9,10 @@ import muayThai from "../../../assets/Home/icon-muay.png";
 import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 import { useState, useRef } from "react";
+import 'swiper/css';
+import 'swiper/css/pagination';
 import ModalAtividades from "../../Modais/ModalAtividades";
 import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao"; 
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
@@ -61,13 +64,34 @@ const AtividadeSection = () => {
         <div className="atividades-container">
           <Swiper 
             ref={swiperRef}
-            slidesPerView={4} 
-            spaceBetween={20} 
-            pagination={{ clickable: true }} 
-            navigation
+            modules={[Pagination]}
+            slidesPerView={1.2}
+            centeredSlides={true}
+            spaceBetween={16} 
+            pagination={{ 
+              clickable: true,
+              dynamicBullets: true
+            }}
             allowTouchMove={true}
             preventClicks={false}
             preventClicksPropagation={false}
+            breakpoints={{
+              480: {
+                slidesPerView: 2,
+                centeredSlides: false,
+                spaceBetween: 20
+              },
+              768: {
+                slidesPerView: 3,
+                centeredSlides: false,
+                spaceBetween: 20
+              },
+              1024: {
+                slidesPerView: 4,
+                centeredSlides: false,
+                spaceBetween: 20
+              }
+            }}
           >
             {atividades.map((atividade) => (
               <SwiperSlide key={atividade.id}>

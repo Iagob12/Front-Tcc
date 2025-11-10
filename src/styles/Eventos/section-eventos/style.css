@@ -4,7 +4,8 @@
     flex-direction: column;
     align-items: center;
     gap: 30px;
-    padding-bottom: 100px;
+    padding: 60px var(--container-padding, 20px) 100px;
+    max-width: 100%;
 }
 
 .link-adicionar{
@@ -20,4 +21,31 @@
     color: var(--color-secondary);
     background: none;
     border: 1px solid var(--color-secondary);
+}
+
+/* ========================================
+   RESPONSIVIDADE EVENTOS
+   ======================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .section-eventos {
+        padding: 50px var(--container-padding, 20px) 60px;
+        gap: 32px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .section-eventos {
+        padding: 40px 20px 60px;
+        gap: 24px;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .section-eventos {
+        padding: 32px 16px 50px;
+    }
 }
