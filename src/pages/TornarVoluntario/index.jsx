@@ -6,7 +6,6 @@ import main_img from '../../assets/TornarVoluntario/main.png'
 import "../../styles/TornarVoluntario/style.css"
 import { Link } from 'react-router-dom';
 
-
 export default function TornarVoluntario() {
     return (
         <>
@@ -20,7 +19,7 @@ export default function TornarVoluntario() {
                     </h1>
                     <div className="text-container">
                         <p>Venha fazer <br /> parte!</p>
-                        <Link to="/">
+                        <Link to="/ser-voluntario">
                             <Button
                             text={"Quero ser um voluntário!"}
                             primary={false}

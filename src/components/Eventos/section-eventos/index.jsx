@@ -12,23 +12,13 @@ export default function SectionEventos() {
 
   // Estado para armazenar os eventos
   const [eventos, setEventos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   // Função para buscar os eventos
   const fetchEventos = async () => {
-    try {
-      const response = await apiGet("/evento/listar")
-      if (response.ok) {
-        const data = await response.json();
-        setEventos(data);
-      } else {
-        setError("Erro ao carregar eventos.");
-      }
-    } catch (error) {
-      setError("Erro ao conectar ao servidor.");
-    } finally {
-      setLoading(false);
+    const response = await apiGet("/evento/listar")
+    if (response.ok) {
+      const data = await response.json();
+      setEventos(data);
     }
   };
 
@@ -54,10 +44,8 @@ export default function SectionEventos() {
           />
         ))
       )}
-
-      {/* Link para adicionar evento, visível apenas para ADMIN */}
       {isAdmin && (
-        <Link to="/adicionar-evento" id="btn-evento" className="link-adicionar">
+        <Link to="/adicionar-evento" className="link-adicionar">
           + Adicionar evento
         </Link>
       )}

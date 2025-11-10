@@ -1,25 +1,27 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/PageSistemaAprovacao/style.css";
 import Header from "../../components/Header";
 import CardBlog from "../../components/Cards/SistemaAprovacaoCards/AprovarBlog";
 import CardVoluntario from "../../components/Cards/SistemaAprovacaoCards/AprovarVoluntario";
 import { apiGet } from "../../config/api";
-import imgbase from "../../assets/teste/img.jpg"
+import imgbase from "../../assets/teste/img.jpg";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
-  const options = {
+  return date.toLocaleDateString("pt-BR", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  };
-  return date.toLocaleDateString("pt-BR", options);
+  });
 };
 
 const SistemaAprovacao = () => {
   const [seletor, setSeletor] = useState("");
   const [blogsPendentes, setBlogsPendentes] = useState([]);
   const [voluntariosPendentes, setVoluntariosPendentes] = useState([]);
+  // Navigate para acessar a blog details 
+  const navigate = useNavigate();
 
   const fetchBlogsPendentes = async () => {
     try {
@@ -79,14 +81,25 @@ const SistemaAprovacao = () => {
               <>
                 {blogsPendentes.length > 0 ? (
                   blogsPendentes.map((blog, index) => (
-                    <CardBlog
+                    <div
                       key={index}
-                      img={blog.urlNoticia}
-                      nomeUsuario={blog.idUsuario.nome}
-                      titulo={blog.tituloMateria}
-                      conteudo={blog.informacao}
-                      data={formatDate(blog.dataPostagem)}
-                    />
+                      onClick={() =>
+                        navigate(`/sistema-aprovacao/detalhes-blog/${blog.id}`, {
+                          state: { showButtons: true },
+                        })
+                      }
+                      style={{ cursor: "pointer" }}
+                    >
+                      <CardBlog
+                        key={index}
+                        img={blog.urlNoticia}
+                        nomeUsuario={blog.idUsuario.nome}
+                        titulo={blog.tituloMateria}
+                        conteudo={blog.informacao}
+                        data={formatDate(blog.dataPostagem)}
+                        onClick={() => navigate(`/blog/${blog.id}`, { state: { showButtons: true } })}
+                      />
+                    </div>
                   ))
                 ) : (
                   <p className="sem-solicitacoes">
