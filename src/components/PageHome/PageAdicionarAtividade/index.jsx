@@ -14,11 +14,17 @@ const AdicionarAtividade = () => {
                         <label htmlFor="nome">Nome</label>
                         <input name="nome" type="text" placeholder="Nome da atividade" />
 
+                        <label htmlFor="descricao">Descrição</label>
+                        <input name="descricao" type="text" placeholder="Descrição da atividade" />
+
                         <div className="data-hora">
                             <label htmlFor="data">Data e hora</label>
-                            <input name="data" type="date" />
+                            <input name="data" type="text" placeholder="Segunda a Sexta"/>
                             <input name="data" type="time" />
                         </div>
+
+                        <label htmlFor="vagas">Número de vagas</label>
+                        <input name="vagas" type="number" />
 
                         {/* Input para colocar a imagem do evento */}
                         <label>Imagem</label>

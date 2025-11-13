@@ -52,13 +52,6 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, vagas }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input 
-            type="tel" 
-            placeholder="Telefone" 
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-            required
-          />
           <Button text="Enviar inscrição" onClick={handleSubmit} />
         </form>
       </div>
