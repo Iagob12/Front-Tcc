@@ -5,7 +5,8 @@ import Header from "../../components/Header";
 import CardBlog from "../../components/Cards/SistemaAprovacaoCards/AprovarBlog";
 import CardVoluntario from "../../components/Cards/SistemaAprovacaoCards/AprovarVoluntario";
 import { apiGet } from "../../config/api";
-import imgbase from "../../assets/teste/img.jpg";
+import defaultImg from "../../assets/default-imgs/default-img.png";
+import { Link } from "react-router-dom";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -75,6 +76,7 @@ const SistemaAprovacao = () => {
             </select>
           </div>
 
+
           <section className="lista-aprovar">
             {/* Blogs Pendentes */}
             {seletor === "BLOGS" && (
@@ -102,9 +104,9 @@ const SistemaAprovacao = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="sem-solicitacoes">
-                    Não há blogs pendentes no momento!
-                  </p>
+                    <p className="sem-solicitacoes">
+                      Não há blogs pendentes no momento!
+                    </p>
                 )}
               </>
             )}
@@ -114,17 +116,24 @@ const SistemaAprovacao = () => {
               <>
                 {voluntariosPendentes.length > 0 ? (
                   voluntariosPendentes.map((voluntario, index) => (
-                    <CardVoluntario
+                    <div
                       key={index}
-                      fotoPerfil={imgbase}
-                      descricao={voluntario.descricao}
-                      nomeVoluntario={voluntario.idUsuario.nome}
-                    />
+                      onClick={() => navigate(`/sistema-aprovacao/detalhes-voluntario/${voluntario.id}`)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <CardVoluntario
+                        fotoPerfil={defaultImg}
+                        descricao={voluntario.descricao}
+                        nomeVoluntario={voluntario.idUsuario.nome}
+                      />
+                    </div>
                   ))
                 ) : (
-                  <p className="sem-solicitacoes">
-                    Não há solicitações de voluntários no momento!
-                  </p>
+                  <>
+                    <p className="sem-solicitacoes">
+                      Não há solicitações de voluntários no momento!
+                    </p>
+                  </>
                 )}
               </>
             )}

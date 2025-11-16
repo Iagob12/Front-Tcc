@@ -5,7 +5,7 @@ import "../../../styles/Eventos/section-eventos/style.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 import { apiGet } from "../../../config/api";
-import imgdefault from "../../../assets/teste/imgdefaultevent.png"
+import defaultImg from "../../../assets/default-imgs/evento-img.png"
 
 export default function SectionEventos() {
   const { isAdmin } = useAuth();
