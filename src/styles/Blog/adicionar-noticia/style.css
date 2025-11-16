@@ -3,23 +3,27 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 146px 146px;
+  align-items: flex-start;
+  padding: 80px 40px;
 }
 
 
 .content-form-noticia {
   background-color: var(--color-white);
-  padding: 123px 175px;
+  padding: 60px 80px;
   border-radius: 30px;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .container-form-noticia h2 {
   color: var(--color-black);
   font-size: 24px;
-  margin-bottom: 101px;
+  margin-bottom: 40px;
 }
 
 
@@ -36,7 +40,7 @@
   border-radius: 30px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   height: 200px;
   overflow-y: auto;
   resize: none;
@@ -56,7 +60,7 @@
 
 .form-noticia button {
   padding: 13.5px 16px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   display: block;
 }
 
@@ -64,14 +68,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 732px;
-  /* largura solicitada */
   height: 285px;
   border: dashed 3px var(--color-grey);
   border-radius: 10px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 74px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-label:hover {
+  border-color: var(--color-primary, #4A86E8);
+  background: #f0f0f0;
+}
+
+.upload-label.dragging {
+  border-color: var(--color-primary, #4A86E8);
+  background: #e8f0fe;
+  border-style: solid;
+}
+
+.upload-label.has-image {
+  border: none;
+  background: transparent;
 }
 
 #iconUpload {
@@ -84,25 +107,75 @@
   font-size: 24px;
   font-weight: 600;
   color: var(--color-grey);
-
 }
 
-.form-noticia input[type="text"] {
+.form-noticia input[type="text"],
+.form-noticia input[type="date"],
+.form-noticia input[type="time"],
+.form-noticia input[type="number"] {
   box-shadow: 1px 4px 4px 0px rgba(0, 0, 0, 0.25);
   outline: none;
   padding: 25px 36px;
   border-radius: 30px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   color: var(--color-black);
   font-size: 16px;
+  font-family: "Inter";
+  border: none;
+  transition: all 0.3s ease;
 }
 
-input[type="text"]::placeholder {
+.form-noticia input[type="text"]:focus,
+.form-noticia input[type="date"]:focus,
+.form-noticia input[type="time"]:focus,
+.form-noticia input[type="number"]:focus {
+  box-shadow: 1px 4px 8px 0px rgba(0, 0, 0, 0.35);
+}
+
+.form-noticia textarea:focus {
+  box-shadow: 1px 4px 8px 0px rgba(0, 0, 0, 0.35);
+}
+
+input[type="text"]::placeholder,
+input[type="date"]::placeholder,
+input[type="time"]::placeholder,
+input[type="number"]::placeholder {
   font-size: 16px;
   font-family: "Inter";
   font-weight: 500;
+  color: var(--color-grey);
+}
+
+/* Estilos para campos em linha */
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.form-row .form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row .label-noticia {
+  margin-bottom: 0;
+}
+
+.form-row .input-noticia {
+  margin-bottom: 0;
+}
+
+.label-noticia {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-grey);
+  margin-bottom: 12px;
+  display: block;
 }
 
 
@@ -139,8 +212,9 @@ input#file-upload-button {
 /* estado inicial (sem imagem) - mantém borda pontilhada */
 
 .upload-label img {
-  width: 732px;
+  width: 100%;
   height: 285px;
+  object-fit: cover;
 }
 
 .upload-label span {
@@ -151,7 +225,7 @@ input#file-upload-button {
 
 .preview-wrapper {
   position: relative;
-  width: 732px;
+  width: 100%;
   height: 285px;
 }
 
@@ -179,4 +253,28 @@ input#file-upload-button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container-form-noticia {
+    padding: 50px 20px;
+  }
+
+  .content-form-noticia {
+    padding: 40px 30px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .form-row .form-field {
+    margin-bottom: 50px;
+  }
+
+  .form-row .form-field:last-child {
+    margin-bottom: 0;
+  }
 }

@@ -35,6 +35,30 @@
     padding-bottom: 60px;
 }
 
+/* Swiper Slide */
+.atividades-container .swiper-slide {
+    width: 275px !important;
+    height: 221px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .atividades-container .swiper-slide {
+        width: 240px !important;
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .atividades-container .swiper-slide {
+        width: 200px !important;
+        height: 180px;
+    }
+}
+
 /* Paginação */
 .atividades-container .swiper-pagination {
     bottom: 10px !important;
@@ -90,6 +114,38 @@
         width: 100%;
         height: auto;
     }
+}
+
+.btn-delete-atividade {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(178, 0, 0, 0.3);
+}
+
+.btn-delete-atividade:hover:not(:disabled) {
+    background: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(178, 0, 0, 0.4);
+}
+
+.btn-delete-atividade:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Mobile pequeno */

@@ -1,17 +1,15 @@
-import React, { useState, useRef, useCallback } from "react";
-import "../../../styles/Blog/adicionar-noticia/style.css";
+import React, { useState, useRef, useCallback, useEffect } from "react";
+import "../../../styles/Modais/modalAdicionarAtividade/style.css";
 import Button from "../../Button";
 import IconUpload from "../../../assets/Blog/upload.svg";
-import { X, Check } from "lucide-react";
+import { X } from "lucide-react";
 import ImageCropModal from "../../PageBlog/ImageCropModal";
 import { apiPost, apiUploadFile } from '../../../config/api';
 import { useToast } from '../../Toast/useToast';
 import ToastContainer from '../../Toast/ToastContainer';
-import { useNavigate } from 'react-router-dom';
 
-const AdicionarAtividade = () => {
+const ModalAdicionarAtividade = ({ isOpen, onClose, onSuccess }) => {
   const toast = useToast();
-  const navigate = useNavigate();
   const [imagePreview, setImagePreview] = useState(null);
   const [imageToCrop, setImageToCrop] = useState(null);
   const [showCropModal, setShowCropModal] = useState(false);
@@ -19,6 +17,7 @@ const AdicionarAtividade = () => {
   const [loading, setLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
+  const modalRef = useRef(null);
   
   const [formData, setFormData] = useState({
     nome: "",
@@ -27,6 +26,43 @@ const AdicionarAtividade = () => {
     horario: "",
     vagas: ""
   });
+
+  // Fechar modal ao clicar fora
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = 'hidden'; // Previne scroll do body
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
+  // Limpar formulário ao fechar
+  useEffect(() => {
+    if (!isOpen) {
+      setFormData({
+        nome: "",
+        descricao: "",
+        dias: "",
+        horario: "",
+        vagas: ""
+      });
+      setImagePreview(null);
+      setImageFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
+  }, [isOpen]);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -200,9 +236,13 @@ const AdicionarAtividade = () => {
           fileInputRef.current.value = '';
         }
 
-        // Redirecionar após 1.5 segundos
+        // Chamar callback de sucesso e fechar modal
+        if (onSuccess) {
+          onSuccess();
+        }
+        
         setTimeout(() => {
-          navigate('/');
+          onClose();
         }, 1500);
       } else if (apiResponse.status === 401) {
         toast.error("Você precisa estar logado para criar uma atividade.");
@@ -220,123 +260,126 @@ const AdicionarAtividade = () => {
     }
   };
 
+  if (!isOpen) return null;
+
   return (
     <>
       <ToastContainer toasts={toast.toasts} removeToast={toast.removeToast} />
-      <div className="container-form-noticia">
-        <div className="content-form-noticia">
-          <h2>Cadastre uma nova atividade</h2>
+      <div className="modal-adicionar-atividade-overlay">
+        <div ref={modalRef} className="modal-adicionar-atividade-container">
+          <button className="modal-close-btn" onClick={onClose} type="button">
+            <X size={24} />
+          </button>
+          
+          <h1 className="titulo-form-atividade">Nova atividade</h1>
+          <div className="content-form-atividade">
+            <form className="form-atividade" onSubmit={handleSubmit}>
+              <label htmlFor="nome">Nome</label>
+              <input
+                name="nome"
+                type="text"
+                placeholder="Nome da atividade"
+                value={formData.nome}
+                onChange={handleInputChange}
+                required
+              />
 
-          <form className="form-noticia" onSubmit={handleSubmit}>
-            {/* Upload de Imagem com Drag and Drop */}
-            <label
-              htmlFor="uploadImage"
-              className={`upload-label ${isDragging ? 'dragging' : ''} ${imagePreview ? 'has-image' : ''}`}
-              onDragEnter={handleDragEnter}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-            >
-              {imagePreview ? (
-                <div className="preview-wrapper">
-                  <img src={imagePreview} alt="Prévia da imagem" className="preview-image" />
-                  <div className="image-actions">
-                    <button type="button" className="action-btn" onClick={removeImage}>
-                      <X size={24} color="#fff" />
-                    </button>
-                    <button type="button" className="action-btn" onClick={(e) => { e.preventDefault(); }}>
-                      <Check size={24} color="#fff" />
-                    </button>
-                  </div>
+              <label htmlFor="descricao">Descrição</label>
+              <textarea
+                name="descricao"
+                placeholder="Descrição da atividade"
+                value={formData.descricao}
+                onChange={handleInputChange}
+                required
+              />
+
+              <div className="data-hora">
+                <div style={{ flex: 1 }}>
+                  <label htmlFor="dias">Dias da semana</label>
+                  <input
+                    name="dias"
+                    type="text"
+                    placeholder="Ex: Segunda a Sexta"
+                    value={formData.dias}
+                    onChange={handleInputChange}
+                    required
+                  />
                 </div>
-              ) : (
-                <>
-                  <img id="iconUpload" src={IconUpload} alt="Upload" />
-                  <span>Faça o upload da capa ou arraste o arquivo</span>
-                </>
-              )}
-            </label>
-
-            <input
-              ref={fileInputRef}
-              type="file"
-              id="uploadImage"
-              name="image"
-              accept="image/*"
-              onChange={handleFileInputChange}
-              style={{ display: "none" }}
-            />
-
-            <label htmlFor="nome" className="label-noticia">Nome</label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              className="input-noticia"
-              placeholder="Digite o nome da atividade"
-              value={formData.nome}
-              onChange={handleInputChange}
-              required
-            />
-
-            <label htmlFor="descricao" className="label-noticia">Descrição</label>
-            <textarea
-              id="descricao"
-              name="descricao"
-              className="input-noticia"
-              placeholder="Descreva a atividade em detalhes"
-              value={formData.descricao}
-              onChange={handleInputChange}
-              required
-            />
-
-            <div className="form-row">
-              <div className="form-field">
-                <label htmlFor="dias" className="label-noticia">Dias da semana</label>
-                <input
-                  type="text"
-                  id="dias"
-                  name="dias"
-                  className="input-noticia"
-                  placeholder="Ex: Segunda a Sexta"
-                  value={formData.dias}
-                  onChange={handleInputChange}
-                  required
-                />
+                <div style={{ flex: 1 }}>
+                  <label htmlFor="horario">Horário</label>
+                  <input
+                    name="horario"
+                    type="time"
+                    value={formData.horario}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-field">
-                <label htmlFor="horario" className="label-noticia">Horário</label>
-                <input
-                  type="time"
-                  id="horario"
-                  name="horario"
-                  className="input-noticia"
-                  value={formData.horario}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            </div>
 
-            <label htmlFor="vagas" className="label-noticia">Número de vagas</label>
-            <input
-              type="number"
-              id="vagas"
-              name="vagas"
-              className="input-noticia"
-              min="1"
-              placeholder="Digite o número de vagas disponíveis"
-              value={formData.vagas}
-              onChange={handleInputChange}
-              required
-            />
+              <label htmlFor="vagas">Número de vagas</label>
+              <input
+                name="vagas"
+                type="number"
+                min="1"
+                placeholder="Ex: 20"
+                value={formData.vagas}
+                onChange={handleInputChange}
+                required
+              />
 
-            <Button
-              type="submit"
-              text={loading ? "Salvando..." : "Salvar"}
-              disabled={loading}
-            />
-          </form>
+              {/* Upload de Imagem com Drag and Drop */}
+              <label>Imagem</label>
+              <label
+                htmlFor="uploadImage"
+                className={`upload-label ${isDragging ? 'dragging' : ''} ${imagePreview ? 'has-image' : ''}`}
+                onDragEnter={handleDragEnter}
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                {imagePreview ? (
+                  <div className="preview-wrapper">
+                    <img src={imagePreview} alt="Prévia da imagem" className="preview-image" />
+                    <div className="image-actions">
+                      <button
+                        type="button"
+                        className="action-btn"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removeImage();
+                        }}
+                      >
+                        <X size={24} color="#fff" />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <img id="iconUpload" src={IconUpload} alt="Upload" />
+                    <span>Faça o upload da capa ou arraste o arquivo</span>
+                  </>
+                )}
+              </label>
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                id="uploadImage"
+                name="image"
+                accept="image/*"
+                onChange={handleFileInputChange}
+                style={{ display: "none" }}
+              />
+
+              <Button
+                type="submit"
+                className="button"
+                text={loading ? "Salvando..." : "Salvar"}
+                disabled={loading}
+              />
+            </form>
+          </div>
         </div>
       </div>
 
@@ -351,4 +394,5 @@ const AdicionarAtividade = () => {
   );
 };
 
-export default AdicionarAtividade;
+export default ModalAdicionarAtividade;
+
