@@ -4,10 +4,7 @@ import "../../styles/PageSistemaAprovacao/style.css";
 import Header from "../../components/Header";
 import CardBlog from "../../components/Cards/SistemaAprovacaoCards/AprovarBlog";
 import CardVoluntario from "../../components/Cards/SistemaAprovacaoCards/AprovarVoluntario";
-import { apiGet, apiPut, apiDelete } from "../../config/api";
-import { useToast } from '../../components/Toast/useToast';
-import ToastContainer from '../../components/Toast/ToastContainer';
-import imgbase from "../../assets/teste/img.jpg";
+
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
@@ -163,6 +160,7 @@ const SistemaAprovacao = () => {
             </select>
           </div>
 
+
           <section className="lista-aprovar">
             {/* Blogs Pendentes */}
             {seletor === "BLOGS" && (
@@ -205,9 +203,9 @@ const SistemaAprovacao = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="sem-solicitacoes">
-                    Não há blogs pendentes no momento!
-                  </p>
+                    <p className="sem-solicitacoes">
+                      Não há blogs pendentes no momento!
+                    </p>
                 )}
               </>
             )}
@@ -217,34 +215,15 @@ const SistemaAprovacao = () => {
               <>
                 {voluntariosPendentes.length > 0 ? (
                   voluntariosPendentes.map((voluntario, index) => (
-                    <div key={index} className="voluntario-card-wrapper">
-                      <CardVoluntario
-                        fotoPerfil={imgbase}
-                        descricao={voluntario.descricao}
-                        nomeVoluntario={voluntario.idUsuario.nome}
-                      />
-                      <div className="voluntario-actions">
-                        <button 
-                          className="btn-aprovar"
-                          onClick={(e) => handleAprovarVoluntario(voluntario.id, e)}
-                          disabled={loadingVoluntarioId === voluntario.id}
-                        >
-                          {loadingVoluntarioId === voluntario.id ? "Aprovando..." : "✓ Aprovar"}
-                        </button>
-                        <button 
-                          className="btn-rejeitar"
-                          onClick={(e) => handleRejeitarVoluntario(voluntario.id, e)}
-                          disabled={loadingVoluntarioId === voluntario.id}
-                        >
-                          {loadingVoluntarioId === voluntario.id ? "Rejeitando..." : "✗ Rejeitar"}
-                        </button>
-                      </div>
+
                     </div>
                   ))
                 ) : (
-                  <p className="sem-solicitacoes">
-                    Não há solicitações de voluntários no momento!
-                  </p>
+                  <>
+                    <p className="sem-solicitacoes">
+                      Não há solicitações de voluntários no momento!
+                    </p>
+                  </>
                 )}
               </>
             )}

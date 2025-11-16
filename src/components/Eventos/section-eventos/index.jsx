@@ -4,11 +4,7 @@ import CardEventos from "../../Cards/CardEventos";
 import "../../../styles/Eventos/section-eventos/style.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
-import { apiGet, apiDelete, getImageUrl } from "../../../config/api";
-import { useToast } from '../../Toast/useToast';
-import ToastContainer from '../../Toast/ToastContainer';
-import { FaTrash } from 'react-icons/fa';
-import imgdefault from "../../../assets/teste/imgdefaultevent.png"
+
 
 export default function SectionEventos() {
   const { isAdmin } = useAuth();

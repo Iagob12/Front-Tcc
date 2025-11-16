@@ -64,7 +64,7 @@ const BlogDetails = () => {
     }
   };
 
-  if (!blog) return <p>Carregando detalhes...</p>;
+  if (!blog) return <p className="loading">Carregando detalhes...</p>;
 
   return (
     <div className="container-detalhes-blog">
