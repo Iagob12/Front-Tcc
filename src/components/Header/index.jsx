@@ -256,7 +256,7 @@ const Header = () => {
                   {/* Badge */}
                   <div className="perfil-badge">
                     <div className="perfil-badge-dot"></div>
-                    <span className="perfil-badge-text">{userData?.tipo || 'Voluntário'}</span>
+                    <span className="perfil-badge-text">{userData?.role || 'Usuario'}</span>
                   </div>
 
                   {/* Divisor */}
