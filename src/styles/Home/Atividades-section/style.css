@@ -35,6 +35,28 @@
     padding-bottom: 60px;
 }
 
+.sem-atividades{
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.atividades-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.atividades-grid > * {
+    width: 200px;
+    flex-shrink: 0;
+}
+
 /* Paginação */
 .atividades-container .swiper-pagination {
     bottom: 10px !important;
@@ -61,6 +83,13 @@
    RESPONSIVIDADE ATIVIDADES
    ======================================== */
 
+/* Tablet */
+@media (max-width: 1024px) {
+    .atividades-grid > * {
+        width: 250px;
+    }
+}
+
 /* Mobile */
 @media (max-width: 768px) {
     .atividades {
@@ -84,6 +113,17 @@
         min-height: auto;
         gap: 24px;
         padding: 0 20px 60px;
+    }
+    
+    .atividades-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+    
+    .atividades-grid > * {
+        width: 100%;
+        max-width: 350px;
     }
     
     .card {

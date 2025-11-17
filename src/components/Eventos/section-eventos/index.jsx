@@ -38,7 +38,7 @@ export default function SectionEventos() {
           <CardEventos
             key={evento.id}
             titulo={evento.nome}
-            img={imgdefault}
+            img={defaultImg}
             local={evento.local}
             data={evento.data}
           />

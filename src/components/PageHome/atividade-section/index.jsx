@@ -1,22 +1,18 @@
 import "../../../styles/Home/Atividades-section/style.css";
 import CardAtividades from "../../Cards/CardAtividades";
 import Title from "../../Title";
-import ballet from "../../../assets/Home/icon-ballet.png";
-import box from "../../../assets/Home/icon-box.png";
-import capoeira from "../../../assets/Home/icon-capoeira.png";
-import danca from "../../../assets/Home/icon-danca.png";
-import muayThai from "../../../assets/Home/icon-muay.png";
 import { Link } from "react-router-dom";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import ModalAtividades from "../../Modais/ModalAtividades";
-import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao"; 
+import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao";
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
 import { useAuth } from "../../../hooks/useAuth";
+import defaultImg from "../../../assets/default-imgs/default-atividade.png"
+import { apiGet } from "../../../config/api";
 
 const AtividadeSection = () => {
   const modalAtividade = UseModalAtividades();
@@ -24,22 +20,45 @@ const AtividadeSection = () => {
   const { isAdmin } = useAuth();
 
   const [atividadeSelecionada, setAtividadeSelecionada] = useState(null);
+  const [atividades, setAtividades] = useState([]);
   const swiperRef = useRef(null);
 
-  const atividades = [
-    { id: "1", name: "Ballet", image: ballet, data: "Segundas e Quartas", horario: "18:00 às 19:00", vagas: 20 },
-    { id: "2", name: "Box", image: box, data: "Terças e Quintas", horario: "19:00 às 20:00", vagas: 15 },
-    { id: "3", name: "Capoeira", image: capoeira, data: "Quartas e Sextas", horario: "20:00 às 21:00", vagas: 25 },
-    { id: "4", name: "Muay Thai", image: muayThai, data: "Segundas e Quartas", horario: "21:00 às 22:00", vagas: 18 },
-    { id: "5", name: "Dança", image: danca, data: "Terças e Quintas", horario: "22:00 às 23:00", vagas: 30 },
-  ];
+  useEffect(() => {
+    const fetchAtividades = async () => {
+      try {
+        const response = await apiGet("/curso/listar");
+        if (response.ok) {
+          const dados = await response.json();
+
+          const atividadesFormatadas = dados.map((item) => ({
+            id: item.id,
+            name: item.titulo,
+            image: defaultImg,
+            data: item.dias,
+            horario: item.horario,
+            vagas: item.vagas,
+          }));
+
+          setAtividades(atividadesFormatadas);
+        } else {
+          console.error("Erro ao listar atividades:", response.status);
+        }
+      } catch (error) {
+        console.error("Erro ao conectar com a API:", error);
+      }
+    };
+
+    fetchAtividades();
+  }, []);
+
+  const usarSwiper = atividades.length >= 5;
 
   const handleCardClick = (atividade, event) => {
     event?.stopPropagation();
-    
+
     const cardElement = event.currentTarget;
     const rect = cardElement.getBoundingClientRect();
-    
+
     setAtividadeSelecionada({
       ...atividade,
       position: {
@@ -47,7 +66,8 @@ const AtividadeSection = () => {
         left: rect.left,
         width: rect.width,
         height: rect.height,
-      }
+      },
+      cursoId: atividade.id
     });
     modalAtividade.open();
   };
@@ -62,49 +82,52 @@ const AtividadeSection = () => {
       <section className="atividades">
         <Title title="Conheça nossas atividades" />
         <div className="atividades-container">
-          <Swiper 
-            ref={swiperRef}
-            modules={[Pagination]}
-            slidesPerView={1.2}
-            centeredSlides={true}
-            spaceBetween={16} 
-            pagination={{ 
-              clickable: true,
-              dynamicBullets: true
-            }}
-            allowTouchMove={true}
-            preventClicks={false}
-            preventClicksPropagation={false}
-            breakpoints={{
-              480: {
-                slidesPerView: 2,
-                centeredSlides: false,
-                spaceBetween: 20
-              },
-              768: {
-                slidesPerView: 3,
-                centeredSlides: false,
-                spaceBetween: 20
-              },
-              1024: {
-                slidesPerView: 4,
-                centeredSlides: false,
-                spaceBetween: 20
-              }
-            }}
-          >
-            {atividades.map((atividade) => (
-              <SwiperSlide key={atividade.id}>
+          {atividades.length === 0 ? (
+            <div className="sem-atividades">
+              <p>Sem atividades disponíveis no momento!</p>
+            </div>
+          ) : usarSwiper ? (
+            <Swiper
+              ref={swiperRef}
+              modules={[Pagination]}
+              slidesPerView={1.2}
+              centeredSlides={true}
+              spaceBetween={16}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              allowTouchMove={true}
+              preventClicks={false}
+              preventClicksPropagation={false}
+              breakpoints={{
+                480: { slidesPerView: 2, centeredSlides: false, spaceBetween: 20 },
+                768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
+                1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 20 }
+              }}
+            >
+              {atividades.map((atividade) => (
+                <SwiperSlide key={atividade.id}>
+                  <CardAtividades
+                    image={atividade.image}
+                    name={atividade.name}
+                    onClick={(event) => handleCardClick(atividade, event)}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div className="atividades-grid">
+              {atividades.map((atividade) => (
                 <CardAtividades
+                  key={atividade.id}
                   image={atividade.image}
                   name={atividade.name}
                   onClick={(event) => handleCardClick(atividade, event)}
                 />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              ))}
+            </div>
+          )}
         </div>
-        
+
+
         {isAdmin && (
           <Link to="/adicionar-atividade" id="btn-blog" className="btn-link">
             + Adicionar atividade
@@ -130,6 +153,7 @@ const AtividadeSection = () => {
           onClose={modalInscricao.close}
           atividade={atividadeSelecionada.name}
           vagas={atividadeSelecionada.vagas}
+          cursoId={atividadeSelecionada.cursoId}
         />
       )}
     </>
