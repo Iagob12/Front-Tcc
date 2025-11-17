@@ -84,7 +84,7 @@ const AtividadeSection = () => {
     
     const cardElement = event.currentTarget;
     const rect = cardElement.getBoundingClientRect();
-    
+
     setAtividadeSelecionada({
       ...atividade,
       position: {
@@ -92,7 +92,8 @@ const AtividadeSection = () => {
         left: rect.left,
         width: rect.width,
         height: rect.height,
-      }
+      },
+      cursoId: atividade.id
     });
     modalAtividade.open();
   };

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Button from "../../Button";
 import "../../../styles/Modais/modalAtividadeInscricao/style.css";
 import { apiPost, apiDelete } from "../../../config/api";
@@ -22,6 +22,10 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, onInscricaoSucess
       setVagasDisponiveis(atividade.vagas);
     }
   }, [atividade]);
+import { apiPost } from "../../../config/api"; // sua função fetch POST
+
+const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, cursoId, vagas }) => {
+  const modalRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {

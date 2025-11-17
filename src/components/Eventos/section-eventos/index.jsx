@@ -57,6 +57,7 @@ export default function SectionEventos() {
   }, []);
 
   return (
+
     <>
       <ToastContainer toasts={toast.toasts} removeToast={toast.removeToast} />
       <section className="section-eventos">
@@ -94,5 +95,28 @@ export default function SectionEventos() {
         )}
       </section>
     </>
+    <section className="section-eventos">
+      <Title title={"Eventos"} />
+      {eventos.length === 0 ? (
+        <p style={{ textAlign: 'center', padding: '20px', color: 'var(--color-grey)', fontSize: '1rem' }}>
+          Não há eventos para exibir.
+        </p>
+      ) : (
+        eventos.map((evento) => (
+          <CardEventos
+            key={evento.id}
+            titulo={evento.nome}
+            img={defaultImg}
+            local={evento.local}
+            data={evento.data}
+          />
+        ))
+      )}
+      {isAdmin && (
+        <Link to="/adicionar-evento" className="link-adicionar">
+          + Adicionar evento
+        </Link>
+      )}
+    </section>
   );
 }
