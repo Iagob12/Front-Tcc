@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../Button";
 import "../../../styles/Modais/modalAtividadeInscricao/style.css";
 import { apiPost, apiDelete } from "../../../config/api";
@@ -17,15 +17,9 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, onInscricaoSucess
   useEffect(() => {
     if (atividade) {
       // Calcular vagas disponíveis (total - inscritos)
-      // Por enquanto, vamos usar o total de vagas, mas você pode melhorar isso
-      // buscando o número real de inscrições
       setVagasDisponiveis(atividade.vagas);
     }
   }, [atividade]);
-import { apiPost } from "../../../config/api"; // sua função fetch POST
-
-const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, cursoId, vagas }) => {
-  const modalRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -125,7 +119,6 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, cursoId, vagas })
               Você precisa estar logado para se inscrever.
             </p>
           )}
-
 
           {vagasDisponiveis === 0 && (
             <p style={{ color: '#f44336', marginTop: '10px' }}>
