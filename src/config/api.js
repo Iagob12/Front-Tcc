@@ -65,6 +65,41 @@ export const apiDelete = async (endpoint) => {
     return response;
 };
 
+// Helper para fazer upload de arquivos
+export const apiUploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    // Não definir Content-Type, deixar o browser definir com boundary
+    // Os cookies (jwt) serão enviados automaticamente com credentials: 'include'
+    const response = await fetch(createApiUrl('api/files/upload'), {
+        method: 'POST',
+        credentials: 'include', // Envia cookies automaticamente
+        body: formData
+        // Não definir headers para permitir que o browser defina Content-Type com boundary
+    });
+    
+    return response;
+};
+
+// Helper para construir URL completa de imagem
+export const getImageUrl = (imagePath) => {
+    if (!imagePath) return null;
+    
+    // Se já for uma URL completa (http/https) ou base64, retornar como está
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:')) {
+        return imagePath;
+    }
+    
+    // Se for uma URL relativa da API, construir URL completa
+    if (imagePath.startsWith('/api/files/')) {
+        return createApiUrl(imagePath.substring(1)); // Remove a barra inicial
+    }
+    
+    // Se for apenas o nome do arquivo, assumir que está em /api/files/
+    return createApiUrl(`api/files/${imagePath}`);
+};
+
 // Log da configuração (apenas em desenvolvimento)
 if (ENV === 'development') {
     console.log('🔧 API Configuration:');

@@ -127,7 +127,8 @@ const Header = () => {
   };
 
   const handleEditarPerfil = () => {
-    alert('Funcionalidade de editar perfil ainda não está disponível');
+    navigate('/editar-perfil');
+    setPerfilAberto(false);
   };
 
   return (
@@ -256,7 +257,7 @@ const Header = () => {
                   {/* Badge */}
                   <div className="perfil-badge">
                     <div className="perfil-badge-dot"></div>
-                    <span className="perfil-badge-text">{userData?.role || 'Usuario'}</span>
+                    <span className="perfil-badge-text">{userData?.tipo || 'Voluntário'}</span>
                   </div>
 
                   {/* Divisor */}

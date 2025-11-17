@@ -54,3 +54,74 @@
     padding: 10px;
     font-weight: 600;
 }
+
+.blog-card-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-actions {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    background: var(--color-grey-light);
+    justify-content: flex-end;
+    border-top: 1px solid var(--color-grey-medium);
+}
+
+.btn-aprovar,
+.btn-rejeitar {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn-aprovar {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-aprovar:hover:not(:disabled) {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-rejeitar {
+    background: #f44336;
+    color: white;
+}
+
+.btn-rejeitar:hover:not(:disabled) {
+    background: #da190b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+}
+
+.btn-aprovar:disabled,
+.btn-rejeitar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.voluntario-card-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.voluntario-actions {
+    display: flex;
+    gap: 10px;
+    padding: 15px 20px;
+    background: var(--color-grey-light);
+    justify-content: flex-end;
+    border-top: 1px solid var(--color-grey-medium);
+}

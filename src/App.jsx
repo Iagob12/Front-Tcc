@@ -18,7 +18,8 @@ import OAuth2Callback from "./pages/OAuth2Callback";
 import PageSistemaAprovacao from "./pages/SistemaAprovacao";
 import PageRelatorios from "./pages/PageRelatorios";
 import BlogDetails from "./components/SistemaAprovacao/BlogDetails";
-import VoluntarioDetails from "./components/SistemaAprovacao/VoluntarioDetails"
+import BlogDetalhes from "./components/PageBlog/BlogDetalhes";
+import EditarPerfil from "./pages/EditarPerfil";
 
 // Componente para scroll to top ao navegar
 function ScrollToTop() {
@@ -54,7 +55,7 @@ const App = () => {
         
         {/* Blog */}
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogDetails />} />
+        <Route path="/blog/:id" element={<BlogDetalhes />} />
         <Route path="/adicionar-noticia" element={<AdicionarNoticia />} />
         <Route path="/adicionar-evento" element={<AdicionarEvento />} />
         <Route path="/adicionar-atividade" element={<AdicionarAtividade />} />
@@ -63,9 +64,9 @@ const App = () => {
         {/* Sistema de aprovação */}
         <Route path="/sistema-aprovacao" element={<PageSistemaAprovacao />} />
         <Route path="/sistema-aprovacao/detalhes-blog/:id" element={<BlogDetails />} />
-        <Route path="/sistema-aprovacao/detalhes-voluntario/:id" element={<VoluntarioDetails />} />
         
         <Route path="/gerenciar-relatorios" element={<PageRelatorios />} />
+        <Route path="/editar-perfil" element={<EditarPerfil />} />
       </Routes>
     </>
   );

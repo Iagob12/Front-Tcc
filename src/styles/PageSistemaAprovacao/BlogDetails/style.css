@@ -69,12 +69,3 @@
     font-weight: bold;
     color: var(--color-grey);
 }
-
-.loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 2rem;
-    color: var(--color-secondary);
-}

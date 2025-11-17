@@ -117,11 +117,15 @@ const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onIns
   // Mantém posição e tamanho originais do card, mas permite altura dinâmica
   const isMobile = window.innerWidth <= 768;
   
+  // Calcula a posição centralizada baseada no card
+  const cardWidth = 280; // Largura fixa do card
+  const modalLeft = position.left + (position.width - cardWidth) / 2;
+  
   const modalStyle = {
     position: "fixed",
     top: `${position.top}px`,
-    left: `${position.left}px`,
-    width: `${position.width}px`,
+    left: `${modalLeft}px`,
+    width: `${cardWidth}px`,
     minHeight: `${position.height}px`,
     height: "auto",
     maxHeight: "80vh",
@@ -135,9 +139,9 @@ const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onIns
       style={modalStyle}
       onMouseLeave={!isMobile ? onClose : undefined}
     >
-      <h3>{aula}</h3>
-      <p className="modal-atividade-data">{data}</p>
-      <p className="modal-atividade-horario">{horario}</p>
+      <h3>{aula || "Atividade"}</h3>
+      {data && <p className="modal-atividade-data">{data}</p>}
+      {horario && <p className="modal-atividade-horario">{horario}</p>}
       <Button text="Inscrever-se" onClick={onInscrever} />
     </div>
   );
