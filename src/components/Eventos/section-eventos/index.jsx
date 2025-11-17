@@ -8,19 +8,17 @@ import { apiGet, apiDelete, getImageUrl } from "../../../config/api";
 import { useToast } from '../../Toast/useToast';
 import ToastContainer from '../../Toast/ToastContainer';
 import { FaTrash } from 'react-icons/fa';
-import imgdefault from "../../../assets/teste/imgdefaultevent.png"
+import imgdefault from "../../../assets/teste/imgdefaultevent.png";
 
 export default function SectionEventos() {
   const { isAdmin } = useAuth();
   const toast = useToast();
 
-  // Estado para armazenar os eventos
   const [eventos, setEventos] = useState([]);
   const [deletingEventoId, setDeletingEventoId] = useState(null);
 
-  // Função para buscar os eventos
   const fetchEventos = async () => {
-    const response = await apiGet("/evento/listar")
+    const response = await apiGet("/evento/listar");
     if (response.ok) {
       const data = await response.json();
       setEventos(data);
