@@ -14,13 +14,14 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, onInscricaoSucess
   const [jaInscrito, setJaInscrito] = useState(false);
   const [vagasDisponiveis, setVagasDisponiveis] = useState(0);
 
+  // Efeito para calcular vagas disponíveis
   useEffect(() => {
     if (atividade) {
-      // Calcular vagas disponíveis (total - inscritos)
       setVagasDisponiveis(atividade.vagas);
     }
   }, [atividade]);
 
+  // Efeito para fechar modal ao clicar fora
   useEffect(() => {
     function handleClickOutside(event) {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -28,8 +29,13 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, onInscricaoSucess
       }
     }
 
-    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [isOpen, onClose]);
 
   const handleInscrever = async (e) => {
