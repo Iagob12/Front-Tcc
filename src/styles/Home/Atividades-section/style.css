@@ -35,7 +35,15 @@
     padding-bottom: 60px;
 }
 
-/* Grid para quando não usar Swiper (4 ou menos cards) */
+.sem-atividades{
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
 .atividades-grid {
     display: flex;
     justify-content: center;
@@ -45,7 +53,7 @@
 }
 
 .atividades-grid > * {
-    width: 250px;
+    width: 200px;
     flex-shrink: 0;
 }
 

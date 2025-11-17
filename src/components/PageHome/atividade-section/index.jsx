@@ -8,7 +8,7 @@ import { useState, useRef, useEffect } from "react";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import ModalAtividades from "../../Modais/ModalAtividades";
-import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao"; 
+import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao";
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
 import { useAuth } from "../../../hooks/useAuth";
 import defaultImg from "../../../assets/default-imgs/default-atividade.png"
@@ -24,41 +24,41 @@ const AtividadeSection = () => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
-  const fetchAtividades = async () => {
-    try {
-      const response = await apiGet("/curso/listar");
-      if (response.ok) {
-        const dados = await response.json();
+    const fetchAtividades = async () => {
+      try {
+        const response = await apiGet("/curso/listar");
+        if (response.ok) {
+          const dados = await response.json();
 
-        const atividadesFormatadas = dados.map((item) => ({
-          id: item.id,
-          name: item.titulo,
-          image: defaultImg,
-          data: item.dias,
-          horario: item.horario,
-          vagas: item.vagas,
-        }));
+          const atividadesFormatadas = dados.map((item) => ({
+            id: item.id,
+            name: item.titulo,
+            image: defaultImg,
+            data: item.dias,
+            horario: item.horario,
+            vagas: item.vagas,
+          }));
 
-        setAtividades(atividadesFormatadas);
-      } else {
-        console.error("Erro ao listar atividades:", response.status);
+          setAtividades(atividadesFormatadas);
+        } else {
+          console.error("Erro ao listar atividades:", response.status);
+        }
+      } catch (error) {
+        console.error("Erro ao conectar com a API:", error);
       }
-    } catch (error) {
-      console.error("Erro ao conectar com a API:", error);
-    }
-  };
+    };
 
-  fetchAtividades();
-}, []);
+    fetchAtividades();
+  }, []);
 
   const usarSwiper = atividades.length >= 5;
 
   const handleCardClick = (atividade, event) => {
     event?.stopPropagation();
-    
+
     const cardElement = event.currentTarget;
     const rect = cardElement.getBoundingClientRect();
-    
+
     setAtividadeSelecionada({
       ...atividade,
       position: {
@@ -67,7 +67,7 @@ const AtividadeSection = () => {
         width: rect.width,
         height: rect.height,
       },
-      cursoId: atividade.id 
+      cursoId: atividade.id
     });
     modalAtividade.open();
   };
@@ -82,24 +82,25 @@ const AtividadeSection = () => {
       <section className="atividades">
         <Title title="Conheça nossas atividades" />
         <div className="atividades-container">
-          {usarSwiper ? (
-            <Swiper 
+          {atividades.length === 0 ? (
+            <div className="sem-atividades">
+              <p>Sem atividades disponíveis no momento!</p>
+            </div>
+          ) : usarSwiper ? (
+            <Swiper
               ref={swiperRef}
               modules={[Pagination]}
               slidesPerView={1.2}
               centeredSlides={true}
-              spaceBetween={16} 
-              pagination={{ 
-                clickable: true,
-                dynamicBullets: true
-              }}
+              spaceBetween={16}
+              pagination={{ clickable: true, dynamicBullets: true }}
               allowTouchMove={true}
               preventClicks={false}
               preventClicksPropagation={false}
               breakpoints={{
                 480: { slidesPerView: 2, centeredSlides: false, spaceBetween: 20 },
                 768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
-                1024:{ slidesPerView: 4, centeredSlides: false, spaceBetween: 20 }
+                1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 20 }
               }}
             >
               {atividades.map((atividade) => (
@@ -125,7 +126,8 @@ const AtividadeSection = () => {
             </div>
           )}
         </div>
-        
+
+
         {isAdmin && (
           <Link to="/adicionar-atividade" id="btn-blog" className="btn-link">
             + Adicionar atividade
