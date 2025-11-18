@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import Button from "../../Button";
 import "../../../styles/Modais/modalAtividadeInscricao/style.css";
-import { apiPost } from "../../../config/api"; // sua função fetch POST
+import { apiPost } from "../../../config/api";
 
 const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, cursoId, vagas }) => {
   const modalRef = useRef(null);
@@ -12,22 +12,23 @@ const ModalAtividadeInscricao = ({ isOpen, onClose, atividade, cursoId, vagas })
         onClose();
       }
     }
-
     if (isOpen) document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, onClose]);
 
   const handleSubmit = async () => {
     try {
-      const usuario = JSON.parse(localStorage.getItem("userData"));
-      if (!usuario || !usuario.id) throw new Error("Usuário não encontrado.");
+      if (vagas <= 0) {
+        alert("Não há vagas disponíveis para esta atividade.");
+        return;
+      }
 
-      const dto = {
-        idUsuario: usuario.id,
-        idCurso: cursoId
-      };
+      const usuario = JSON.parse(localStorage.getItem("userData") || "{}");
+      if (!usuario.id) throw new Error("Usuário não encontrado.");
 
+      const dto = { idUsuario: usuario.id, idCurso: cursoId };
       const response = await apiPost("/inscricao/inscrever", dto);
+
       if (response.ok) {
         alert(`Inscrição realizada com sucesso na atividade: ${atividade}!`);
         onClose();

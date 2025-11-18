@@ -11,7 +11,7 @@ import ModalAtividades from "../../Modais/ModalAtividades";
 import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao";
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
 import { useAuth } from "../../../hooks/useAuth";
-import defaultImg from "../../../assets/default-imgs/default-atividade.png"
+import defaultImg from "../../../assets/default-imgs/default-atividade.png";
 import { apiGet } from "../../../config/api";
 
 const AtividadeSection = () => {
@@ -55,9 +55,7 @@ const AtividadeSection = () => {
 
   const handleCardClick = (atividade, event) => {
     event?.stopPropagation();
-
-    const cardElement = event.currentTarget;
-    const rect = cardElement.getBoundingClientRect();
+    const rect = event.currentTarget.getBoundingClientRect();
 
     setAtividadeSelecionada({
       ...atividade,
@@ -67,7 +65,7 @@ const AtividadeSection = () => {
         width: rect.width,
         height: rect.height,
       },
-      cursoId: atividade.id
+      cursoId: atividade.id,
     });
     modalAtividade.open();
   };
@@ -126,7 +124,6 @@ const AtividadeSection = () => {
             </div>
           )}
         </div>
-
 
         {isAdmin && (
           <Link to="/adicionar-atividade" id="btn-blog" className="btn-link">
