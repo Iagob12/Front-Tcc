@@ -265,8 +265,10 @@ const Header = () => {
                   {/* Seção de Acesso */}
                   <div className="perfil-section">
                     <h4 className="perfil-section-title">ACESSO</h4>
-                    <button className="perfil-menu-item" onClick={handleEditarPerfil}>
-                      Editar perfil
+                    <button>
+                      <Link className="perfil-menu-item" to="/editar-perfil" >
+                        Editar Perfil
+                      </Link>
                     </button>
                     <button >
                       {isAdmin && (

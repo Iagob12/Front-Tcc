@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
 import Cadastro from "./pages/Cadastro";
+import PageEditarPerfil from "./pages/PageEditarPerfil"
 import ComoAjudar from "./pages/ComoAjudar";
 import Login from "./pages/Login";
 import Tarefas from './pages/Tarefas';
@@ -19,6 +20,7 @@ import PageSistemaAprovacao from "./pages/SistemaAprovacao";
 import PageRelatorios from "./pages/PageRelatorios";
 import BlogDetails from "./components/SistemaAprovacao/BlogDetails";
 import VoluntarioDetails from "./components/SistemaAprovacao/VoluntarioDetails"
+
 
 // Componente para scroll to top ao navegar
 function ScrollToTop() {
@@ -45,6 +47,7 @@ const App = () => {
         <Route path="/oauth2/callback" element={<OAuth2Callback />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastrar-se" element={<Cadastro />} />
+        <Route path="/editar-perfil" element={< PageEditarPerfil/>} />
         <Route path="/eventos" element={<Eventos />} />
         <Route path="/como-ajudar" element={<ComoAjudar />} />
         <Route path="/sobre" element={<SobreNos />} />
