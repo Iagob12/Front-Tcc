@@ -9,6 +9,7 @@ import ComoAjudar from "./pages/ComoAjudar";
 import Login from "./pages/Login";
 import Tarefas from './pages/Tarefas';
 import TornarVoluntario from "./pages/TornarVoluntario";
+import PageTarefas from "./pages/Tarefas"
 import SerVoluntario from "./components/SerVoluntario"
 import SobreNos from "./pages/SobreNos";
 import Blog from "./pages/Blog";
@@ -54,6 +55,7 @@ const App = () => {
         <Route path="/tarefas" element={<Tarefas />} />
         <Route path="/voluntario" element={<TornarVoluntario />} />
         <Route path="/quero-ser-voluntario" element={<TornarVoluntario />} />
+        <Route path="/tarefas" element={<PageTarefas />} />
         
         {/* Blog */}
         <Route path="/blog" element={<Blog />} />

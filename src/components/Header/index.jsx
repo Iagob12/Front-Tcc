@@ -284,8 +284,10 @@ const Header = () => {
                         </Link>
                       )}
                     </button>
-                    <button className="perfil-menu-item">
-                      Escalas
+                    <button>
+                      <Link className="perfil-menu-item" to="/tarefas" >
+                        Tarefas
+                      </Link>
                     </button>
                   </div>
 
