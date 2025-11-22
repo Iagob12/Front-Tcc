@@ -1,12 +1,15 @@
 import "../../../styles/Home/AdicionarAtividade/style.css";
 import Button from "../../Button";
 import IconUpload from "../../../assets/Blog/upload.svg";
-import { useState } from "react";
-import { apiPost } from "../../../config/api";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { apiGet, apiPost, apiPut } from "../../../config/api"; 
+import { useNavigate, useParams } from "react-router-dom";
+import ImageCropModal from "../../PageBlog/ImageCropModal";
 
 const AdicionarAtividade = () => {
     const navigate = useNavigate();
+    const { id } = useParams();
+    const isEdit = Boolean(id);
 
     const [formData, setFormData] = useState({
         nome: "",
@@ -16,9 +19,77 @@ const AdicionarAtividade = () => {
         vagas: 0,
     });
 
+    const [imagePreview, setImagePreview] = useState(null);
+    const [imageFile, setImageFile] = useState(null);
+    const [showCropModal, setShowCropModal] = useState(false);
+    const [imageToCrop, setImageToCrop] = useState(null);
+
+    useEffect(() => {
+        if (isEdit) {
+            apiGet(`/curso/listar`)
+                .then(res => res.json())
+                .then(data => {
+                    const curso = data.find(c => c.id === Number(id));
+                    if (curso) {
+                        setFormData({
+                            nome: curso.titulo,
+                            descricao: curso.descricao,
+                            data: curso.dias,
+                            hora: curso.horario,
+                            vagas: curso.vagas,
+                        });
+                        if (curso.imagem) setImagePreview(curso.imagem);
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+    }, [id, isEdit]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            alert("Por favor, selecione apenas arquivos de imagem.");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert("A imagem deve ter no máximo 5MB.");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImageToCrop(reader.result);
+            setShowCropModal(true);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleCropComplete = (croppedImage) => {
+        setImagePreview(croppedImage);
+        setShowCropModal(false);
+        setImageToCrop(null);
+    };
+
+    const handleCropCancel = () => {
+        setShowCropModal(false);
+        setImageToCrop(null);
+        const fileInput = document.getElementById("uploadImage");
+        if (fileInput) fileInput.value = "";
+    };
+
+    const removeImage = () => {
+        setImagePreview(null);
+        setImageFile(null);
+        const fileInput = document.getElementById("uploadImage");
+        if (fileInput) fileInput.value = "";
     };
 
     const handleSubmit = async (e) => {
@@ -30,36 +101,35 @@ const AdicionarAtividade = () => {
             dias: formData.data,
             horario: formData.hora,
             vagas: Number(formData.vagas),
+            imagem: imagePreview || null,
         };
 
         try {
-            const response = await apiPost("/curso/cadastrar", dto);
-            if (response.ok) {
-                alert("Atividade cadastrada com sucesso!");
-                setFormData({
-                    nome: "",
-                    descricao: "",
-                    data: "",
-                    hora: "",
-                    vagas: 0,
-                });
-                navigate(-1); // Volta uma página
+            let response;
+            if (isEdit) {
+                response = await apiPut(`/curso/atualizar/${id}`, dto);
             } else {
-                alert("Erro ao cadastrar atividade. Tente novamente.");
-                console.error("Erro ao cadastrar atividade", response.status);
+                response = await apiPost("/curso/cadastrar", dto);
+            }
+
+            if (response.ok) {
+                alert(isEdit ? "Atividade atualizada com sucesso!" : "Atividade cadastrada com sucesso!");
+                navigate(-1);
+            } else {
+                alert("Erro ao salvar atividade. Tente novamente.");
+                console.error(response.status);
             }
         } catch (error) {
             alert("Erro ao conectar com a API. Tente novamente.");
-            console.error("Erro ao conectar com a API", error);
+            console.error(error);
         }
     };
 
     return (
         <div className="container-form-atividade">
-            <h1 className="titulo-form-atividade">Nova atividade</h1>
+            <h1 className="titulo-form-atividade">{isEdit ? "Editar Atividade" : "Nova atividade"}</h1>
             <div className="content-form-atividade">
                 <form className="form-atividade" onSubmit={handleSubmit}>
-
                     <label htmlFor="nome">Nome</label>
                     <input
                         name="nome"
@@ -111,13 +181,38 @@ const AdicionarAtividade = () => {
 
                     <label>Imagem</label>
                     <label htmlFor="uploadImage" className="upload-label">
-                        <img id="iconUpload" src={IconUpload} alt="Upload" />
-                        <span>Faça o upload da capa ou arraste o arquivo</span>
+                        {imagePreview ? (
+                            <div className="preview-wrapper">
+                                <img src={imagePreview} alt="Prévia da imagem" className="preview-image" />
+                                <button type="button" className="remove-btn" onClick={removeImage}>Remover imagem</button>
+                            </div>
+                        ) : (
+                            <>
+                                <img id="iconUpload" src={IconUpload} alt="Upload" />
+                                <span>Faça o upload da capa ou arraste o arquivo</span>
+                            </>
+                        )}
                     </label>
+
+                    <input
+                        type="file"
+                        id="uploadImage"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ display: "none" }}
+                    />
 
                     <Button className="button" text={"Salvar"} />
                 </form>
             </div>
+
+            {showCropModal && imageToCrop && (
+                <ImageCropModal
+                    image={imageToCrop}
+                    onClose={handleCropCancel}
+                    onCropComplete={handleCropComplete}
+                />
+            )}
         </div>
     );
 };

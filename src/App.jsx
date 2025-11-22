@@ -63,6 +63,7 @@ const App = () => {
         <Route path="/adicionar-noticia" element={<AdicionarNoticia />} />
         <Route path="/adicionar-evento" element={<AdicionarEvento />} />
         <Route path="/adicionar-atividade" element={<AdicionarAtividade />} />
+        <Route path="/atividades/editar/:id" element={<AdicionarAtividade />} />
         <Route path="/ser-voluntario" element={<SerVoluntario />} />
         
         {/* Sistema de aprovação */}

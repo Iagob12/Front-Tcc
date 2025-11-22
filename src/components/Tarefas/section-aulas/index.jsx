@@ -50,7 +50,7 @@ export default function SectionAulas() {
                     titulo={curso.titulo}
                     descricao={curso.descricao}
                     data={curso.dias}
-                    img={defaultImg}
+                    img={curso.imagem || defaultImg}
                     onCancel={(cancelledId) =>
                         setAulas(aulas.filter((a) => a.idInscricao !== cancelledId))
                     }

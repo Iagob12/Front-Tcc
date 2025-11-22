@@ -24,6 +24,7 @@
     flex-direction: column;
     gap: 20px;
     margin-bottom: 50px;
+    max-width: 50%;
 }
 
 .form-atividade label {
@@ -54,4 +55,13 @@
 .button{
     width: 150px;
     align-self: center;
+}
+
+.remove-btn{
+    background: var(--color-secondary);
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    position: relative;
+    margin-top: 20px;
 }

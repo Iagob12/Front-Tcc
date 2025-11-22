@@ -36,13 +36,12 @@ const AtividadeSection = () => {
           const atividadesFormatadas = dados.map((item) => ({
             id: item.id,
             name: item.titulo,
-            image: defaultImg,
+            image: item.imagem || defaultImg,
             descricao: item.descricao,
             data: item.dias,
             horario: item.horario,
             vagas: item.vagas,
           }));
-
           setAtividades(atividadesFormatadas);
         } else {
           console.error("Erro ao listar atividades:", response.status);

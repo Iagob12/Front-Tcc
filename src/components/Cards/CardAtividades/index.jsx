@@ -1,13 +1,20 @@
 import "../../../styles/Cards/CardAtividades/style.css";
 import { FaTrash, FaPen } from "react-icons/fa";
 import { useAuth } from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const CardAtividades = ({ id, image, name, onClick, onDelete }) => {
   const { isAdmin } = useAuth();
-  
+  const navigate = useNavigate();
+
   const handleDeleteClick = (e) => {
     e.stopPropagation();
     onDelete(id);
+  };
+
+  const handleEditClick = (e) => {
+    e.stopPropagation();
+    navigate(`/atividades/editar/${id}`)
   };
 
   return (
@@ -21,7 +28,10 @@ const CardAtividades = ({ id, image, name, onClick, onDelete }) => {
             <FaTrash style={{ color: "red", cursor: "pointer" }} onClick={handleDeleteClick} />
           </p>
           <p>
-            <FaPen style={{ cursor: "pointer" }} />
+            <FaPen
+              style={{ cursor: "pointer" }}
+              onClick={handleEditClick}
+            />
           </p>
         </div>
       )}
