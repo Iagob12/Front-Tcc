@@ -12,7 +12,8 @@ import ModalAtividadeInscricao from "../../Modais/ModalAtividadesInscricao";
 import { UseModalAtividades } from "../../Modais/ModalAtividades/UseModalAtividades.jsx";
 import { useAuth } from "../../../hooks/useAuth";
 import defaultImg from "../../../assets/default-imgs/default-atividade.png";
-import { apiGet } from "../../../config/api";
+import { apiGet, apiDelete } from "../../../config/api";
+import ModalExclusao from "../../Modais/ModalExclusao";
 
 const AtividadeSection = () => {
   const modalAtividade = UseModalAtividades();
@@ -21,6 +22,8 @@ const AtividadeSection = () => {
 
   const [atividadeSelecionada, setAtividadeSelecionada] = useState(null);
   const [atividades, setAtividades] = useState([]);
+  const [modalExclusaoOpen, setModalExclusaoOpen] = useState(false);
+  const [excluirId, setExcluirId] = useState(null);
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -34,6 +37,7 @@ const AtividadeSection = () => {
             id: item.id,
             name: item.titulo,
             image: defaultImg,
+            descricao: item.descricao,
             data: item.dias,
             horario: item.horario,
             vagas: item.vagas,
@@ -75,6 +79,30 @@ const AtividadeSection = () => {
     modalInscricao.open();
   };
 
+  const handleDeleteClick = (id) => {
+    setExcluirId(id);
+    setModalExclusaoOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!excluirId) return;
+    try {
+      const response = await apiDelete(`/curso/deletar/${excluirId}`);
+      if (!response.ok) {
+        alert("Erro ao excluir atividade.");
+        return;
+      }
+      setAtividades((prev) => prev.filter((item) => item.id !== excluirId));
+      alert("Atividade excluída com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir:", error);
+      alert("Erro inesperado ao excluir.");
+    } finally {
+      setModalExclusaoOpen(false);
+      setExcluirId(null);
+    }
+  };
+
   return (
     <>
       <section className="atividades">
@@ -104,9 +132,11 @@ const AtividadeSection = () => {
               {atividades.map((atividade) => (
                 <SwiperSlide key={atividade.id}>
                   <CardAtividades
+                    id={atividade.id}
                     image={atividade.image}
                     name={atividade.name}
                     onClick={(event) => handleCardClick(atividade, event)}
+                    onDelete={() => handleDeleteClick(atividade.id)}
                   />
                 </SwiperSlide>
               ))}
@@ -116,9 +146,14 @@ const AtividadeSection = () => {
               {atividades.map((atividade) => (
                 <CardAtividades
                   key={atividade.id}
+                  id={atividade.id}
                   image={atividade.image}
                   name={atividade.name}
+                  data={atividade.data}
+                  descricao={atividade.descricao}
+                  horario={atividade.horario}
                   onClick={(event) => handleCardClick(atividade, event)}
+                  onDelete={() => handleDeleteClick(atividade.id)}
                 />
               ))}
             </div>
@@ -138,6 +173,7 @@ const AtividadeSection = () => {
           onClose={modalAtividade.close}
           aula={atividadeSelecionada.name}
           data={atividadeSelecionada.data}
+          descricao={atividadeSelecionada.descricao}
           horario={atividadeSelecionada.horario}
           position={atividadeSelecionada.position}
           onInscrever={handleInscrever}
@@ -153,6 +189,13 @@ const AtividadeSection = () => {
           cursoId={atividadeSelecionada.cursoId}
         />
       )}
+
+      <ModalExclusao
+        isOpen={modalExclusaoOpen}
+        onClose={() => setModalExclusaoOpen(false)}
+        onConfirm={handleConfirmDelete}
+        mensagem="Tem certeza que deseja excluir esta atividade?"
+      />
     </>
   );
 };

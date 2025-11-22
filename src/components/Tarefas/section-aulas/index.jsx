@@ -8,7 +8,6 @@ export default function SectionAulas() {
     const [aulas, setAulas] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Pega o ID do usuário do localStorage
     const storedUser = localStorage.getItem("userData");
     const usuarioId = storedUser ? JSON.parse(storedUser).id : null;
 

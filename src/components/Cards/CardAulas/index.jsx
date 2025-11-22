@@ -16,7 +16,7 @@ const CardAula = ({ idInscricao, img, descricao, data, titulo, onCancel }) => {
             }
             const result = await response.json();
             alert(result.mensagem || "Inscrição cancelada com sucesso!");
-            onCancel(idInscricao); // informar ao componente pai que a inscrição foi removida
+            onCancel(idInscricao);
         } catch (error) {
             console.error("Erro ao cancelar inscrição:", error);
             alert("Erro ao cancelar inscrição.");

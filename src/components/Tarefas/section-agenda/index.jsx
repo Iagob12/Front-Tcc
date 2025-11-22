@@ -5,7 +5,7 @@ import SectionAulas from "../../../components/Tarefas/section-aulas";
 import SectionTarefas from "../../../components/Tarefas/section-tarefas";
 
 export default function Agenda() {
-    const [opcao, setOpcao] = useState("tarefas"); // estado inicial
+    const [opcao, setOpcao] = useState("tarefas");
 
     return (
         <>

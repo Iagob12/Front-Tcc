@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Button from "../../Button";
 import "../../../styles/Modais/modalAtividades/style.css";
 
-const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onInscrever}) => {
+const ModalAtividades = ({ aula, data, horario, descricao, isOpen, onClose, position, onInscrever}) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -136,8 +136,9 @@ const ModalAtividades = ({ aula, data, horario, isOpen, onClose, position, onIns
       onMouseLeave={!isMobile ? onClose : undefined}
     >
       <h3>{aula}</h3>
-      <p className="modal-atividade-data">{data}</p>
-      <p className="modal-atividade-horario">{horario}</p>
+      <p>{data}</p>
+      <p>{descricao}</p>
+      <p>{horario}</p>
       <Button text="Inscrever-se" onClick={onInscrever} />
     </div>
   );
