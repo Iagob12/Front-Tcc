@@ -1,0 +1,21 @@
+.comentario-container{
+    box-shadow: 1px 4px 4px 0px rgba(0, 0, 0, .5);
+    padding: 10px;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.cabecalho-comentario {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 80px;
+}
+
+.cabecalho-comentario img {
+    width: 60px;
+}
+
+.cabecalho-comentario p {
+    margin: 0;
+}
